@@ -1,10 +1,13 @@
 {
   "name": "react-images-uploading",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": ">",
+  "author": "imvutoan",
   "license": "MIT",
-  "repository": "/react-images-uploading",
+  "repository": {
+    "type": "git",
+    "url": "/react-images-uploading"
+  },
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
@@ -51,5 +54,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "directories": {
+    "example": "example"
+  }
 }
