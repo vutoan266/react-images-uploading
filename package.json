@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "/react-images-uploading"
+    "url": "https://github.com/vutoan266/React-images-uploading"
   },
   "main": "dist/index.js",
   "module": "dist/index.es.js",
