@@ -3,9 +3,9 @@ import { getBase64 } from "./utils";
 
 const { useRef, useState, useEffect } = React;
 export interface ImageType {
-  src: string;
-  originFile?: File;
-  tempName?: string;
+  dataURL: string;
+  file?: File;
+  key?: string;
   onUpdate?: () => void;
   onRemove?: () => void;
 }
@@ -37,7 +37,7 @@ const ImageUploading: React.FC<UploadProps> = ({
   const [imageList, setImageList] = useState(defaultValue || []);
 
   // the "id unique" of the image that need update by new image upload
-  const [tempNameUpdate, setTempNameUpdate] = useState("");
+  const [keyUpdate, setKeyUpdate] = useState("");
 
   // for getting the latest imageList state
   const imageListRef = useRef(imageList);
@@ -49,8 +49,8 @@ const ImageUploading: React.FC<UploadProps> = ({
   const onStandardizeDataChange = (list: ImageListType): void => {
     if (onChange) {
       const sData: ImageListType = list.map(item => ({
-        originFile: item.originFile,
-        src: item.src
+        file: item.file,
+        dataURL: item.dataURL
       }));
       onChange(sData);
     }
@@ -67,22 +67,22 @@ const ImageUploading: React.FC<UploadProps> = ({
     onStandardizeDataChange([]);
   };
 
-  const onImageRemove = (tempName: string): void => {
+  const onImageRemove = (key: string): void => {
     const updatedList: ImageListType = imageListRef.current.filter(
-      (item: ImageType) => item.tempName !== tempName
+      (item: ImageType) => item.key !== key
     );
     setImageList(updatedList);
     onStandardizeDataChange(updatedList);
   };
 
   useEffect(() => {
-    if (tempNameUpdate) {
+    if (keyUpdate) {
       onImageUpload();
     }
-  }, [tempNameUpdate]);
+  }, [keyUpdate]);
 
-  const onImageUpdate = (tempName: string): void => {
-    setTempNameUpdate(tempName);
+  const onImageUpdate = (key: string): void => {
+    setKeyUpdate(key);
   };
 
   // read files and add some needed properties, func for update/remove actions
@@ -95,15 +95,13 @@ const ImageUploading: React.FC<UploadProps> = ({
 
     return Promise.all(promiseFiles).then((fileListBase64: Array<string>) => {
       const fileList: ImageListType = fileListBase64.map((base64, index) => {
-        const tempName = `${new Date().getTime().toString()}-${
-          files[index].name
-        }`;
+        const key = `${new Date().getTime().toString()}-${files[index].name}`;
         return {
-          src: base64,
-          originFile: files[index],
-          tempName,
-          onUpdate: (): void => onImageUpdate(tempName),
-          onRemove: (): void => onImageRemove(tempName)
+          dataURL: base64,
+          file: files[index],
+          key,
+          onUpdate: (): void => onImageUpdate(key),
+          onRemove: (): void => onImageRemove(key)
         };
       });
       return fileList;
@@ -119,12 +117,12 @@ const ImageUploading: React.FC<UploadProps> = ({
       const fileList = await getListFile(files);
       if (fileList.length > 0) {
         let updatedFileList: ImageListType;
-        if (tempNameUpdate) {
+        if (keyUpdate) {
           updatedFileList = imageList.map((item: ImageType) => {
-            if (item.tempName === tempNameUpdate) return { ...fileList[0] };
+            if (item.key === keyUpdate) return { ...fileList[0] };
             return item;
           });
-          setTempNameUpdate("");
+          setKeyUpdate("");
         } else {
           if (mode === "multiple") {
             updatedFileList = [...imageList, ...fileList];
@@ -138,7 +136,7 @@ const ImageUploading: React.FC<UploadProps> = ({
         setImageList(updatedFileList);
         onStandardizeDataChange(updatedFileList);
       } else {
-        tempNameUpdate && setTempNameUpdate("");
+        keyUpdate && setKeyUpdate("");
       }
     }
   };
@@ -149,7 +147,7 @@ const ImageUploading: React.FC<UploadProps> = ({
         type="file"
         accept="image/*"
         ref={inputRef}
-        multiple={mode === "multiple" && !tempNameUpdate}
+        multiple={mode === "multiple" && !keyUpdate}
         onChange={onInputChange}
         style={{ display: " none" }}
       />
@@ -159,7 +157,7 @@ const ImageUploading: React.FC<UploadProps> = ({
 };
 
 ImageUploading.defaultProps = {
-  maxNumber: 10,
+  maxNumber: 100,
   mode: "single"
 };
 

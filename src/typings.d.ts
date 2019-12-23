@@ -1,17 +1,9 @@
-/**
- * Default CSS definition for typescript,
- * will be overridden with file-specific definitions by rollup
- */
-declare module '*.css' {
-  const content: { [className: string]: string };
-  export default content;
+export interface ImageType {
+  dataURL: string;
+  file?: File;
+  key?: string;
+  onUpdate?: () => void;
+  onRemove?: () => void;
 }
 
-interface SvgrComponent extends React.StatelessComponent<React.SVGAttributes<SVGElement>> {}
-
-declare module '*.svg' {
-  const svgUrl: string;
-  const svgComponent: SvgrComponent;
-  export default svgUrl;
-  export { svgComponent as ReactComponent }
-}
+export type ImageListType = Array<ImageType>;
