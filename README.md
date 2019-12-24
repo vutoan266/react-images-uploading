@@ -20,7 +20,7 @@ npm install --save react-images-uploading
 import * as React from "react";
 
 import ImageUploading from "react-images-uploading";
-// { ImageListType, ImageType } is type for typescript
+// { ImageUploadingPropsType, ImageListType, ImageType } is type for typescript
 
 const mode = "single";
 const maxNumber = 10;
@@ -57,18 +57,22 @@ class Example extends React.Component {
 
 | parameter    | type     | options                | default  | description                                           |
 | ------------ | -------- | ---------------------- | -------- | ----------------------------------------------------- |
-| mode         | string   | single                 | multiple | single                                                | Select just one or multiple images |
+| mode         | string   | single                 | multiple | Select just one or multiple images                    |
 | maxNumber    | number   |                        | 100      | Number of images user can select if mode = "multiple" |
 | onChange     | function |                        |          | Called every update                                   |
-| defaultValue | array    | [{dataURL: ... }, ...] |          |                                                       |
+| defaultValue | array    | [{dataURL: ... }, ...] |          | Init data                                             |
 
 ## Exported options
 
-| parameter        | type     | description                                                                                                                                                                                                                                              |
-| ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| imageList        | array    | List of images for render. Each item in imageList has some options: - key : generate filename - dataURL : url image or base64 - onUpdate : call function for replace a new image on current position - onRemove : call function for remove current image |
-| onImageUpload    | function | Call for upload new image(s)                                                                                                                                                                                                                             |
-| onImageRemoveAll | function | Call for remove all image(s)                                                                                                                                                                                                                             |
+| parameter                 | type     | description                                                               |
+| ------------------------- | -------- | ------------------------------------------------------------------------- |
+| imageList                 | array    | List of images for render. Each item in imageList has some options below. |
+| imageList[index].key      | string   | Generate filename                                                         |
+| imageList[index].dataURL  | string   | Url image or base64                                                       |
+| imageList[index].onUpdate | function | Call function for replace a new image on current position                 |
+| imageList[index].onRemove | function | Call function for remove current image                                    |
+| onImageUpload             | function | Call for upload new image(s)                                              |
+| onImageRemoveAll          | function | Call for remove all image(s)                                              |
 
 ## License
 

@@ -12,21 +12,21 @@ export interface ImageType {
 
 export type ImageListType = Array<ImageType>;
 
-interface UploadProps {
-  children: (props: ExportInterface) => React.ReactNode;
+export interface ImageUploadingPropsType {
+  children?: (props: ExportInterface) => React.ReactNode;
   defaultValue?: ImageListType;
   onChange?: (value: ImageListType) => void;
   mode?: "single" | "multiple";
   maxNumber?: number;
 }
 
-interface ExportInterface {
+export interface ExportInterface {
   imageList: ImageListType;
   onImageUpload: () => void;
   onImageRemoveAll: () => void;
 }
 
-const ImageUploading: React.FC<UploadProps> = ({
+const ImageUploading: React.FC<ImageUploadingPropsType> = ({
   mode,
   onChange,
   maxNumber,
@@ -151,7 +151,8 @@ const ImageUploading: React.FC<UploadProps> = ({
         onChange={onInputChange}
         style={{ display: " none" }}
       />
-      {children({ imageList: imageList, onImageUpload, onImageRemoveAll })}
+      {children &&
+        children({ imageList: imageList, onImageUpload, onImageRemoveAll })}
     </>
   );
 };

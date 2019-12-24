@@ -8,6 +8,7 @@
     "type": "git",
     "url": "https://github.com/vutoan266/React-images-uploading"
   },
+  "homepage": "https://github.com/vutoan266/React-images-uploading/blob/master/README.md",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
@@ -46,9 +47,18 @@
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-typescript2": "^0.17.0",
     "rollup-plugin-url": "^1.4.0",
-    "typescript": "^2.8.3"
+    "typescript": "3.7.3"
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "image",
+    "images",
+    "upload",
+    "uploader",
+    "uploading",
+    "react image upload",
+    "react images uploading"
   ]
 }
