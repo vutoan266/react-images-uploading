@@ -8,6 +8,8 @@
 
 A simple images uploader without UI. Building by yourself.
 
+## [#Demo](https://codesandbox.io/s/react-images-uploading-demo-u0khz)
+
 ## Install
 
 ```bash
@@ -34,7 +36,7 @@ class Example extends React.Component {
       <ImageUploading mode={mode} onChange={onChange} maxNumber={maxNumber}>
         {({ imageList, onImageUpload, onImageRemoveAll }) => (
           // write your building UI
-          <div className="upload__image-wrapper">
+          <div>
             <button onClick={onImageUpload}>Upload images</button>
             <button onClick={onImageRemoveAll}>Remove all images</button>
 
@@ -55,12 +57,12 @@ class Example extends React.Component {
 
 ## Props
 
-| parameter    | type     | options                | default  | description                                           |
-| ------------ | -------- | ---------------------- | -------- | ----------------------------------------------------- |
-| mode         | string   | single                 | multiple | Select just one or multiple images                    |
-| maxNumber    | number   |                        | 100      | Number of images user can select if mode = "multiple" |
-| onChange     | function |                        |          | Called every update                                   |
-| defaultValue | array    | [{dataURL: ... }, ...] |          | Init data                                             |
+| parameter    | type     | options                | default | description                                           |
+| ------------ | -------- | ---------------------- | ------- | ----------------------------------------------------- |
+| mode         | string   | single/multiple        | single  | Select just one or multiple images                    |
+| maxNumber    | number   |                        | 100     | Number of images user can select if mode = "multiple" |
+| onChange     | function |                        |         | Called every update                                   |
+| defaultValue | array    | [{dataURL: ... }, ...] |         | Init data                                             |
 
 ## Exported options
 

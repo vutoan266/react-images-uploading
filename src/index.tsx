@@ -149,7 +149,7 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
         ref={inputRef}
         multiple={mode === "multiple" && !keyUpdate}
         onChange={onInputChange}
-        style={{ display: " none" }}
+        style={{ display: "none" }}
       />
       {children &&
         children({ imageList: imageList, onImageUpload, onImageRemoveAll })}

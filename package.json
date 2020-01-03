@@ -1,7 +1,7 @@
 {
   "name": "react-images-uploading",
   "version": "1.0.2",
-  "description": ">",
+  "description": "A simple images uploader without UI. Building by yourself",
   "author": "imvutoan",
   "license": "MIT",
   "repository": {
