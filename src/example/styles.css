@@ -1,0 +1,17 @@
+.App {
+  font-family: sans-serif;
+  background-color: #f6f9fe;
+  height: 100vh;
+}
+.image-item {
+  display: flex;
+  margin: 10px 0;
+}
+.image-item__btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+button {
+  height: 40px;
+}

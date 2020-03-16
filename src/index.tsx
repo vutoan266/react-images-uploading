@@ -16,28 +16,50 @@ export interface ImageUploadingPropsType {
   children?: (props: ExportInterface) => React.ReactNode;
   defaultValue?: ImageListType;
   onChange?: (value: ImageListType) => void;
-  mode?: "single" | "multiple";
+  multiple?: boolean;
   maxNumber?: number;
+  acceptType?: Array<string>;
+  maxFileSize?: number;
 }
 
 export interface ExportInterface {
   imageList: ImageListType;
   onImageUpload: () => void;
   onImageRemoveAll: () => void;
+  errors: Record<string, any>;
 }
 
+const defaultErrors = {
+  maxFileSize: false
+};
+
 const ImageUploading: React.FC<ImageUploadingPropsType> = ({
-  mode,
+  multiple,
   onChange,
   maxNumber,
   children,
-  defaultValue
+  defaultValue,
+  acceptType,
+  maxFileSize
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [imageList, setImageList] = useState(defaultValue || []);
+  const [imageList, setImageList] = useState(() => {
+    let initImageList: Array<ImageType> = [];
+    if (defaultValue) {
+      initImageList = defaultValue.map((item: ImageType) => ({
+        ...item,
+        key: item.dataURL,
+        onUpdate: (): void => onImageUpdate(item.dataURL),
+        onRemove: (): void => onImageRemove(item.dataURL)
+      }));
+    }
+    return initImageList;
+  });
 
   // the "id unique" of the image that need update by new image upload
   const [keyUpdate, setKeyUpdate] = useState("");
+
+  const [errors, setErrors] = useState({ ...defaultErrors });
 
   // for getting the latest imageList state
   const imageListRef = useRef(imageList);
@@ -108,6 +130,24 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
     });
   };
 
+  const validate = (fileList: ImageListType): boolean => {
+    setErrors({ ...defaultErrors });
+    if (maxFileSize) {
+      for (let i = 0; i < fileList.length; i++) {
+        // check size
+        const file = fileList[i].file;
+        if (file) {
+          const size = Math.round(file.size / 1024 / 1024);
+          if (maxFileSize && size > maxFileSize) {
+            setErrors({ ...errors, maxFileSize: true });
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  };
+
   const onInputChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ): Promise<void> => {
@@ -116,50 +156,66 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
     if (files) {
       const fileList = await getListFile(files);
       if (fileList.length > 0) {
-        let updatedFileList: ImageListType;
-        if (keyUpdate) {
-          updatedFileList = imageList.map((item: ImageType) => {
-            if (item.key === keyUpdate) return { ...fileList[0] };
-            return item;
-          });
-          setKeyUpdate("");
-        } else {
-          if (mode === "multiple") {
-            updatedFileList = [...imageList, ...fileList];
-            if (maxNumber && updatedFileList.length > maxNumber) {
-              updatedFileList = imageList;
-            }
+        if (validate(fileList)) {
+          let updatedFileList: ImageListType;
+          if (keyUpdate) {
+            updatedFileList = imageList.map((item: ImageType) => {
+              if (item.key === keyUpdate) return { ...fileList[0] };
+              return item;
+            });
+            setKeyUpdate("");
           } else {
-            updatedFileList = [fileList[0]];
+            if (multiple) {
+              updatedFileList = [...imageList, ...fileList];
+              if (maxNumber && updatedFileList.length > maxNumber) {
+                updatedFileList = imageList;
+              }
+            } else {
+              updatedFileList = [fileList[0]];
+            }
           }
+          setImageList(updatedFileList);
+          onStandardizeDataChange(updatedFileList);
+        } else {
         }
-        setImageList(updatedFileList);
-        onStandardizeDataChange(updatedFileList);
       } else {
         keyUpdate && setKeyUpdate("");
       }
     }
   };
 
+  const acceptString =
+    acceptType && acceptType.length > 0
+      ? acceptType
+          .reduce((acceptStr, item) => acceptStr.concat(`, image/${item}`), "")
+          .slice(2)
+      : "image/*";
+
   return (
     <>
       <input
         type="file"
-        accept="image/*"
+        accept={acceptString}
         ref={inputRef}
-        multiple={mode === "multiple" && !keyUpdate}
+        multiple={multiple && !keyUpdate}
         onChange={onInputChange}
         style={{ display: "none" }}
       />
       {children &&
-        children({ imageList: imageList, onImageUpload, onImageRemoveAll })}
+        children({
+          imageList,
+          onImageUpload,
+          onImageRemoveAll,
+          errors
+        })}
     </>
   );
 };
 
 ImageUploading.defaultProps = {
-  maxNumber: 100,
-  mode: "single"
+  maxNumber: 1000,
+  multiple: false,
+  acceptType: []
 };
 
 export default ImageUploading;

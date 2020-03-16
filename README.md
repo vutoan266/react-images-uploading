@@ -10,11 +10,19 @@ A simple images uploader without UI. Building by yourself.
 
 ## [#Demo](https://codesandbox.io/s/react-images-uploading-demo-u0khz)
 
+## [Article Medium](https://medium.com/@imvutoan/make-image-upload-in-react-easier-with-react-images-uploading-and-your-ui-983fed029ee2)
+
 ## Install
 
 ```bash
 npm install --save react-images-uploading
 ```
+
+## Break change in version 2.0.0
+
+- Replace "mode" by "multiple" props.
+- Fix bug images in defaultValue cannot update or delete.
+- Add some more utilities props : acceptType, maxFileSize
 
 ## Usage
 
@@ -24,16 +32,23 @@ import * as React from "react";
 import ImageUploading from "react-images-uploading";
 // { ImageUploadingPropsType, ImageListType, ImageType } is type for typescript
 
-const mode = "single";
 const maxNumber = 10;
+const maxMbFileSize = 5;
 class Example extends React.Component {
   onChange = imageList => {
     // data for submit
+    console.log(imageList);
   };
 
   render() {
     return (
-      <ImageUploading mode={mode} onChange={onChange} maxNumber={maxNumber}>
+      <ImageUploading
+        onChange={this.onChange}
+        maxNumber={maxNumber}
+        multiple
+        maxFileSize={maxMbFileSize}
+        acceptType={["jpg", "gif", "png"]}
+      >
         {({ imageList, onImageUpload, onImageRemoveAll }) => (
           // write your building UI
           <div>
@@ -59,10 +74,12 @@ class Example extends React.Component {
 
 | parameter    | type     | options                | default | description                                           |
 | ------------ | -------- | ---------------------- | ------- | ----------------------------------------------------- |
-| mode         | string   | single/multiple        | single  | Select just one or multiple images                    |
-| maxNumber    | number   |                        | 100     | Number of images user can select if mode = "multiple" |
+| multiple     | boolean  |                        | false   | Set true for multiple choose                          |
+| maxNumber    | number   |                        | 1000    | Number of images user can select if mode = "multiple" |
 | onChange     | function |                        |         | Called every update                                   |
 | defaultValue | array    | [{dataURL: ... }, ...] |         | Init data                                             |
+| acceptType   | array    | ['jpg', 'gif', 'png']  | []      | Supported image extension                             |
+| maxFileSize  | number   |                        |         | Max image size(Mb) (will use in the image validation) |
 
 ## Exported options
 
@@ -75,6 +92,7 @@ class Example extends React.Component {
 | imageList[index].onRemove | function | Call function for remove current image                                    |
 | onImageUpload             | function | Call for upload new image(s)                                              |
 | onImageRemoveAll          | function | Call for remove all image(s)                                              |
+| errors                    | object   | Export type of validation                                                 |
 
 ## License
 
