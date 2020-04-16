@@ -10,19 +10,13 @@ A simple images uploader without UI. Building by yourself.
 
 ## [#Demo](https://codesandbox.io/s/react-images-uploading-demo-u0khz)
 
-## [Article Medium](https://medium.com/@imvutoan/make-image-upload-in-react-easier-with-react-images-uploading-and-your-ui-983fed029ee2)
+## [Introduce blog](https://medium.com/@imvutoan/make-image-upload-in-react-easier-with-react-images-uploading-and-your-ui-983fed029ee2)
 
 ## Install
 
 ```bash
 npm install --save react-images-uploading
 ```
-
-## Break change in version 2.0.0
-
-- Replace "mode" by "multiple" props.
-- Fix bug images in defaultValue cannot update or delete.
-- Add some more utilities props : acceptType, maxFileSize
 
 ## Usage
 
@@ -35,7 +29,7 @@ import ImageUploading from "react-images-uploading";
 const maxNumber = 10;
 const maxMbFileSize = 5;
 class Example extends React.Component {
-  onChange = imageList => {
+  onChange = (imageList) => {
     // data for submit
     console.log(imageList);
   };
@@ -55,7 +49,7 @@ class Example extends React.Component {
             <button onClick={onImageUpload}>Upload images</button>
             <button onClick={onImageRemoveAll}>Remove all images</button>
 
-            {imageList.map(image => (
+            {imageList.map((image) => (
               <div key={image.key}>
                 <img src={image.dataURL} />
                 <button onClick={image.onUpdate}>Update</button>
@@ -68,6 +62,20 @@ class Example extends React.Component {
     );
   }
 }
+```
+
+### Validate
+
+```
+...
+  {({ imageList, onImageUpload, onImageRemoveAll, errors }) => (
+    <div>
+      {errors.maxNumber && <span>Number of selected images exceed maxNumber</span>}
+      {errors.acceptType && <span>Your selected file type is not allow</span>}
+      {errors.maxFileSize && <span>Selected file size exceed maxFileSize</span>}
+    </div>
+  )}
+...
 ```
 
 ## Props
