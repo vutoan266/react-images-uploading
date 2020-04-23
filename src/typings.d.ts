@@ -1,5 +1,3 @@
-import { ExportInterface } from "./index";
-
 export interface ImageType {
   dataURL: string;
   file?: File;
@@ -14,6 +12,21 @@ export interface ImageUploadingPropsType {
   children?: (props: ExportInterface) => React.ReactNode;
   defaultValue?: ImageListType;
   onChange?: (value: ImageListType) => void;
-  mode?: "single" | "multiple";
+  multiple?: boolean;
   maxNumber?: number;
+  acceptType?: Array<string>;
+  maxFileSize?: number;
 }
+
+export interface ExportInterface {
+  imageList: ImageListType;
+  onImageUpload: () => void;
+  onImageRemoveAll: () => void;
+  errors: Record<string, any>;
+}
+
+export type ErrorsType = {
+  maxFileSize: boolean;
+  maxNumber: boolean;
+  acceptType: boolean;
+};

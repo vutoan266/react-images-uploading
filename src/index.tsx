@@ -1,39 +1,13 @@
 import * as React from "react";
 import { getBase64 } from "./utils";
+import {
+  ImageType,
+  ImageListType,
+  ImageUploadingPropsType,
+  ErrorsType,
+} from "./typings";
 
 const { useRef, useState, useEffect } = React;
-export interface ImageType {
-  dataURL: string;
-  file?: File;
-  key?: string;
-  onUpdate?: () => void;
-  onRemove?: () => void;
-}
-
-export type ImageListType = Array<ImageType>;
-
-export interface ImageUploadingPropsType {
-  children?: (props: ExportInterface) => React.ReactNode;
-  defaultValue?: ImageListType;
-  onChange?: (value: ImageListType) => void;
-  multiple?: boolean;
-  maxNumber?: number;
-  acceptType?: Array<string>;
-  maxFileSize?: number;
-}
-
-export interface ExportInterface {
-  imageList: ImageListType;
-  onImageUpload: () => void;
-  onImageRemoveAll: () => void;
-  errors: Record<string, any>;
-}
-
-type ErrorsType = {
-  maxFileSize: boolean;
-  maxNumber: boolean;
-  acceptType: boolean;
-};
 
 const defaultErrors: ErrorsType = {
   maxFileSize: false,
@@ -67,17 +41,13 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
   const [keyUpdate, setKeyUpdate] = useState<string>("");
   const [errors, setErrors] = useState<ErrorsType>({ ...defaultErrors });
 
-  const imageListRef = useRef(imageList);
-  useEffect(() => {
-    imageListRef.current = imageList;
-  }, [imageList]);
-
   const onStandardizeDataChange = (list: ImageListType): void => {
     if (onChange) {
-      const sData: ImageListType = list.map((item) => ({
-        file: item.file,
-        dataURL: item.dataURL,
-      }));
+      const sData: ImageListType = list.map(
+        ({ key, onUpdate, onRemove, ...restOfItem }) => ({
+          ...restOfItem,
+        })
+      );
       onChange(sData);
     }
   };
@@ -92,11 +62,13 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
   };
 
   const onImageRemove = (key: string): void => {
-    const updatedList: ImageListType = imageListRef.current.filter(
-      (item: ImageType) => item.key !== key
-    );
-    setImageList(updatedList);
-    onStandardizeDataChange(updatedList);
+    setImageList((previousList) => {
+      const updatedList = previousList.filter(
+        (item: ImageType) => item.key !== key
+      );
+      onStandardizeDataChange(updatedList);
+      return updatedList;
+    });
   };
 
   useEffect(() => {
@@ -137,22 +109,26 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
       setErrors({ ...errors, maxNumber: true });
       return false;
     }
-    if (maxFileSize || (acceptType && acceptType.length > 0)) {
-      for (let i = 0; i < fileList.length; i++) {
-        const file = fileList[i].file;
-        if (file) {
-          if (maxFileSize) {
-            const size = Math.round(file.size / 1024 / 1024);
-            if (size > maxFileSize) {
-              setErrors({ ...errors, maxFileSize: true });
-              return false;
-            }
-          } else if (acceptType) {
-            const type: string = file.name.split(".").pop() || "";
-            if (acceptType.indexOf(type) < 0) {
-              setErrors({ ...errors, acceptType: true });
-              return false;
-            }
+    for (let i = 0; i < fileList.length; i++) {
+      const file = fileList[i].file;
+      if (file) {
+        const fileType: string = file.type;
+        if (!fileType.includes("image")) {
+          setErrors({ ...errors, acceptType: true });
+          return false;
+        }
+        if (maxFileSize) {
+          const size = Math.round(file.size / 1024 / 1024);
+          if (size > maxFileSize) {
+            setErrors({ ...errors, maxFileSize: true });
+            return false;
+          }
+        }
+        if (acceptType && acceptType.length > 0) {
+          const type: string = file.name.split(".").pop() || "";
+          if (acceptType.indexOf(type) < 0) {
+            setErrors({ ...errors, acceptType: true });
+            return false;
           }
         }
       }
