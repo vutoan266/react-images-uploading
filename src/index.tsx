@@ -1,10 +1,11 @@
 import * as React from "react";
-import { getBase64 } from "./utils";
+import { getBase64, checkResolution } from "./utils";
 import {
   ImageType,
   ImageListType,
   ImageUploadingPropsType,
   ErrorsType,
+  ResolutionType,
 } from "./typings";
 
 const { useRef, useState, useEffect } = React;
@@ -13,6 +14,7 @@ const defaultErrors: ErrorsType = {
   maxFileSize: false,
   maxNumber: false,
   acceptType: false,
+  resolution: false,
 };
 
 const ImageUploading: React.FC<ImageUploadingPropsType> = ({
@@ -23,6 +25,9 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
   defaultValue,
   acceptType,
   maxFileSize,
+  resolutionWidth,
+  resolutionHeight,
+  resolutionType,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [imageList, setImageList] = useState(() => {
@@ -103,14 +108,15 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
     });
   };
 
-  const validate = (fileList: ImageListType): boolean => {
+  const validate = async (fileList: ImageListType): Promise<boolean> => {
     setErrors({ ...defaultErrors });
     if (maxNumber && fileList.length + imageList.length > maxNumber) {
       setErrors({ ...errors, maxNumber: true });
       return false;
     }
     for (let i = 0; i < fileList.length; i++) {
-      const file = fileList[i].file;
+      const { file, dataURL } = fileList[i];
+
       if (file) {
         const fileType: string = file.type;
         if (!fileType.includes("image")) {
@@ -118,8 +124,7 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
           return false;
         }
         if (maxFileSize) {
-          const size = Math.round(file.size / 1024 / 1024);
-          if (size > maxFileSize) {
+          if (file.size > maxFileSize) {
             setErrors({ ...errors, maxFileSize: true });
             return false;
           }
@@ -130,6 +135,18 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
             setErrors({ ...errors, acceptType: true });
             return false;
           }
+        }
+      }
+      if (dataURL && resolutionType) {
+        const checkRes = await checkResolution(
+          dataURL,
+          resolutionType,
+          resolutionWidth,
+          resolutionHeight
+        );
+        if (!checkRes) {
+          setErrors({ ...errors, resolution: true });
+          return false;
         }
       }
     }
@@ -144,14 +161,14 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
     if (files) {
       const fileList = await getListFile(files);
       if (fileList.length > 0) {
-        if (validate(fileList)) {
+        const checkValidate = await validate(fileList);
+        if (checkValidate) {
           let updatedFileList: ImageListType;
           if (keyUpdate) {
             updatedFileList = imageList.map((item: ImageType) => {
               if (item.key === keyUpdate) return { ...fileList[0] };
               return item;
             });
-            setKeyUpdate("");
           } else {
             if (multiple) {
               updatedFileList = [...imageList, ...fileList];
@@ -164,11 +181,9 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
           }
           setImageList(updatedFileList);
           onStandardizeDataChange(updatedFileList);
-        } else {
         }
-      } else {
-        keyUpdate && setKeyUpdate("");
       }
+      keyUpdate && setKeyUpdate("");
     }
   };
 
@@ -205,3 +220,11 @@ ImageUploading.defaultProps = {
 };
 
 export default ImageUploading;
+
+export {
+  ImageType,
+  ImageListType,
+  ImageUploadingPropsType,
+  ErrorsType,
+  ResolutionType,
+};

@@ -14,8 +14,16 @@ A simple images uploader without UI. Building by yourself.
 
 ## Install
 
+With npm
+
 ```bash
 npm install --save react-images-uploading
+```
+
+With yarn
+
+```bash
+yarn add react-images-uploading
 ```
 
 ## Usage
@@ -27,7 +35,8 @@ import ImageUploading from "react-images-uploading";
 // { ImageUploadingPropsType, ImageListType, ImageType } is type for typescript
 
 const maxNumber = 10;
-const maxMbFileSize = 5;
+const maxMbFileSize = 5 * 1024 * 1024; // 5Mb
+
 class Example extends React.Component {
   onChange = (imageList) => {
     // data for submit
@@ -73,21 +82,32 @@ class Example extends React.Component {
       {errors.maxNumber && <span>Number of selected images exceed maxNumber</span>}
       {errors.acceptType && <span>Your selected file type is not allow</span>}
       {errors.maxFileSize && <span>Selected file size exceed maxFileSize</span>}
+      {errors.resolution && <span>Selected file is not match your desired resolution</span>}
     </div>
   )}
 ...
 ```
 
+### Resolution
+
+- "absolute": resolutionWidth and resolutionHeight is equal with selected image absolutely
+- "ratio": resolutionWidth/resolutionHeight ratio is equal with width/height ratio of selected image
+- "less: image width must less than resolutionWidth and image height must less than resolutionHeight
+- "more: image width must more than resolutionWidth and image height must more than resolutionHeight
+
 ## Props
 
-| parameter    | type     | options                | default | description                                           |
-| ------------ | -------- | ---------------------- | ------- | ----------------------------------------------------- |
-| multiple     | boolean  |                        | false   | Set true for multiple choose                          |
-| maxNumber    | number   |                        | 1000    | Number of images user can select if mode = "multiple" |
-| onChange     | function |                        |         | Called every update                                   |
-| defaultValue | array    | [{dataURL: ... }, ...] |         | Init data                                             |
-| acceptType   | array    | ['jpg', 'gif', 'png']  | []      | Supported image extension                             |
-| maxFileSize  | number   |                        |         | Max image size(Mb) (will use in the image validation) |
+| parameter        | type     | options                                   | default | description                                                                    |
+| ---------------- | -------- | ----------------------------------------- | ------- | ------------------------------------------------------------------------------ |
+| multiple         | boolean  |                                           | false   | Set true for multiple choose                                                   |
+| maxNumber        | number   |                                           | 1000    | Number of images user can select if mode = "multiple"                          |
+| onChange         | function |                                           |         | Called every update                                                            |
+| defaultValue     | array    | \[\{dataURL: \.\.\. \}, \.\.\.\]          |         | Init data                                                                      |
+| acceptType       | array    | \['jpg', 'gif', 'png'\]                   | \[\]    | Supported image extension                                                      |
+| maxFileSize      | number   |                                           |         | Max image size\(Byte\) \(will use in the image validation\)                    |
+| resolutionType   | string   | "absolute" \| "less" \| "more" \| "ratio" |         | Using for validate image with your width \- height resolution that you provide |
+| resolutionWidth  | number   | > 0                                       |         |                                                                                |
+| resolutionHeight | number   | > 0                                       |         |                                                                                |
 
 ## Exported options
 

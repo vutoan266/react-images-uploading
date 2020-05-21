@@ -10,8 +10,6 @@
   },
   "homepage": "https://github.com/vutoan266/React-images-uploading/blob/master/README.md",
   "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "jsnext:main": "dist/index.es.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5"
