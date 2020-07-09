@@ -8,7 +8,7 @@ import {
   ResolutionType,
 } from "./typings";
 
-const { useRef, useState, useEffect } = React;
+const { useRef, useState, useCallback } = React;
 
 const defaultErrors: ErrorsType = {
   maxFileSize: false,
@@ -57,14 +57,24 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
     }
   };
 
-  const onImageUpload = (): void => {
+  const handleClickInput = useCallback((): void => {
     inputRef.current && inputRef.current.click();
-  };
+  }, [inputRef]);
 
-  const onImageRemoveAll = (): void => {
+  const onImageUpload = useCallback((): void => {
+    setKeyUpdate((prevKey) => {
+      if (prevKey) {
+        return "";
+      }
+      return prevKey;
+    });
+    handleClickInput();
+  }, [handleClickInput]);
+
+  const onImageRemoveAll = useCallback((): void => {
     setImageList([]);
     onStandardizeDataChange([]);
-  };
+  }, []);
 
   const onImageRemove = (key: string): void => {
     setImageList((previousList) => {
@@ -76,14 +86,9 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
     });
   };
 
-  useEffect(() => {
-    if (keyUpdate) {
-      onImageUpload();
-    }
-  }, [keyUpdate]);
-
   const onImageUpdate = (key: string): void => {
     setKeyUpdate(key);
+    handleClickInput();
   };
 
   const getListFile = (files: FileList): Promise<ImageListType> => {
@@ -183,8 +188,9 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
           onStandardizeDataChange(updatedFileList);
         }
       }
-      keyUpdate && setKeyUpdate("");
     }
+    keyUpdate && setKeyUpdate("");
+    if (inputRef.current) inputRef.current.value = "";
   };
 
   const acceptString =
