@@ -19,6 +19,7 @@ export interface ImageUploadingPropsType {
   resolutionWidth?: number;
   resolutionHeight?: number;
   resolutionType?: ResolutionType;
+  onError?: (errors: ErrorsType, files?: ImageListType) => void;
 }
 
 export interface ExportInterface {

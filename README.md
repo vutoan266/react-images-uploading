@@ -42,6 +42,9 @@ class Example extends React.Component {
     // data for submit
     console.log(imageList);
   };
+  onError = (errors, files) => {
+    console.log(errors, files);
+  };
 
   render() {
     return (
@@ -51,6 +54,7 @@ class Example extends React.Component {
         multiple
         maxFileSize={maxMbFileSize}
         acceptType={["jpg", "gif", "png"]}
+        onError={this.onError}
       >
         {({ imageList, onImageUpload, onImageRemoveAll }) => (
           // write your building UI
@@ -102,6 +106,7 @@ class Example extends React.Component {
 | multiple         | boolean  |                                           | false   | Set true for multiple choose                                                   |
 | maxNumber        | number   |                                           | 1000    | Number of images user can select if mode = "multiple"                          |
 | onChange         | function |                                           |         | Called every update                                                            |
+| onError          | function | (errors, files) => void                   |         | Called if have error on validate each update                                   |
 | defaultValue     | array    | \[\{dataURL: \.\.\. \}, \.\.\.\]          |         | Init data                                                                      |
 | acceptType       | array    | \['jpg', 'gif', 'png'\]                   | \[\]    | Supported image extension                                                      |
 | maxFileSize      | number   |                                           |         | Max image size\(Byte\) \(will use in the image validation\)                    |

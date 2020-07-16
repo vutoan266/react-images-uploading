@@ -28,6 +28,7 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
   resolutionWidth,
   resolutionHeight,
   resolutionType,
+  onError,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [imageList, setImageList] = useState(() => {
@@ -114,46 +115,56 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
   };
 
   const validate = async (fileList: ImageListType): Promise<boolean> => {
-    setErrors({ ...defaultErrors });
-    if (maxNumber && fileList.length + imageList.length > maxNumber) {
-      setErrors({ ...errors, maxNumber: true });
-      return false;
-    }
-    for (let i = 0; i < fileList.length; i++) {
-      const { file, dataURL } = fileList[i];
+    const newErrors = { ...defaultErrors };
 
-      if (file) {
-        const fileType: string = file.type;
-        if (!fileType.includes("image")) {
-          setErrors({ ...errors, acceptType: true });
-          return false;
-        }
-        if (maxFileSize) {
-          if (file.size > maxFileSize) {
-            setErrors({ ...errors, maxFileSize: true });
-            return false;
+    if (
+      maxNumber &&
+      !keyUpdate &&
+      fileList.length + imageList.length > maxNumber
+    ) {
+      newErrors.maxNumber = true;
+    } else {
+      for (let i = 0; i < fileList.length; i++) {
+        const { file, dataURL } = fileList[i];
+
+        if (file) {
+          const fileType: string = file.type;
+          if (!fileType.includes("image")) {
+            newErrors.acceptType = true;
+            break;
+          }
+          if (maxFileSize) {
+            if (file.size > maxFileSize) {
+              newErrors.maxFileSize = true;
+              break;
+            }
+          }
+          if (acceptType && acceptType.length > 0) {
+            const type: string = file.name.split(".").pop() || "";
+            if (acceptType.indexOf(type) < 0) {
+              newErrors.acceptType = true;
+              break;
+            }
           }
         }
-        if (acceptType && acceptType.length > 0) {
-          const type: string = file.name.split(".").pop() || "";
-          if (acceptType.indexOf(type) < 0) {
-            setErrors({ ...errors, acceptType: true });
-            return false;
+        if (dataURL && resolutionType) {
+          const checkRes = await checkResolution(
+            dataURL,
+            resolutionType,
+            resolutionWidth,
+            resolutionHeight
+          );
+          if (!checkRes) {
+            newErrors.resolution = true;
+            break;
           }
         }
       }
-      if (dataURL && resolutionType) {
-        const checkRes = await checkResolution(
-          dataURL,
-          resolutionType,
-          resolutionWidth,
-          resolutionHeight
-        );
-        if (!checkRes) {
-          setErrors({ ...errors, resolution: true });
-          return false;
-        }
-      }
+    }
+    setErrors(newErrors);
+    if (Object.values(newErrors).find(Boolean)) {
+      onError && onError(newErrors, fileList);
+      return false;
     }
     return true;
   };
