@@ -29,6 +29,8 @@ export interface ExportInterface {
   errors: Record<string, any>;
 }
 
+export type ImageUploadingRef = ExportInterface
+
 export type ErrorsType = {
   maxFileSize: boolean;
   maxNumber: boolean;

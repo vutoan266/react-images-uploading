@@ -6,7 +6,7 @@ import {
   ImageUploadingPropsType,
   ErrorsType,
   ResolutionType,
-  ExportInterface
+  ImageUploadingRef
 } from "./typings";
 
 const { useRef, useState, useCallback } = React;
@@ -19,7 +19,7 @@ const defaultErrors: ErrorsType = {
 };
 
 const ImageUploading: React.RefForwardingComponent<
-ExportInterface,
+ImageUploadingRef,
 ImageUploadingPropsType
 > = ({
   onChange,
@@ -249,4 +249,5 @@ export {
   ImageUploadingPropsType,
   ErrorsType,
   ResolutionType,
+  ImageUploadingRef
 };
