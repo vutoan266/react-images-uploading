@@ -6,6 +6,7 @@ import {
   ImageUploadingPropsType,
   ErrorsType,
   ResolutionType,
+  ImageUploadingRef
 } from "./typings";
 
 const { useRef, useState, useCallback } = React;
@@ -17,19 +18,22 @@ const defaultErrors: ErrorsType = {
   resolution: false,
 };
 
-const ImageUploading: React.FC<ImageUploadingPropsType> = ({
-  multiple,
+const ImageUploading: React.RefForwardingComponent<
+ImageUploadingRef,
+ImageUploadingPropsType
+> = ({
   onChange,
-  maxNumber,
   children,
   defaultValue,
-  acceptType,
   maxFileSize,
   resolutionWidth,
   resolutionHeight,
   resolutionType,
   onError,
-}) => {
+  maxNumber = 1000,
+  multiple = false,
+  acceptType = [],
+}, ref) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [imageList, setImageList] = useState(() => {
     let initImageList: Array<ImageType> = [];
@@ -204,6 +208,13 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
     if (inputRef.current) inputRef.current.value = "";
   };
 
+  React.useImperativeHandle(ref, () => ({
+    imageList,
+    onImageUpload,
+    onImageRemoveAll,
+    errors
+  }));
+
   const acceptString =
     acceptType && acceptType.length > 0
       ? acceptType.map((item) => `.${item}`).join(", ")
@@ -230,13 +241,7 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
   );
 };
 
-ImageUploading.defaultProps = {
-  maxNumber: 1000,
-  multiple: false,
-  acceptType: [],
-};
-
-export default ImageUploading;
+export default React.forwardRef(ImageUploading);
 
 export {
   ImageType,
@@ -244,4 +249,5 @@ export {
   ImageUploadingPropsType,
   ErrorsType,
   ResolutionType,
+  ImageUploadingRef
 };
