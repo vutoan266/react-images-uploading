@@ -22,17 +22,17 @@ const ImageUploading: React.RefForwardingComponent<
 ExportInterface,
 ImageUploadingPropsType
 > = ({
-  multiple,
   onChange,
-  maxNumber,
   children,
   defaultValue,
-  acceptType,
   maxFileSize,
   resolutionWidth,
   resolutionHeight,
   resolutionType,
   onError,
+  maxNumber = 1000,
+  multiple = false,
+  acceptType = [],
 }, ref) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [imageList, setImageList] = useState(() => {
@@ -239,12 +239,6 @@ ImageUploadingPropsType
         })}
     </>
   );
-};
-
-ImageUploading.defaultProps = {
-  maxNumber: 1000,
-  multiple: false,
-  acceptType: [],
 };
 
 export default React.forwardRef(ImageUploading);
