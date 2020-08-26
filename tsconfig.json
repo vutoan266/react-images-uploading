@@ -1,4 +1,7 @@
 {
+  "files": [
+    "src/index.tsx"
+  ],
   "compilerOptions": {
     "outDir": "build",
     "module": "esnext",
@@ -12,12 +15,12 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["src"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "build", "dist", "example", "rollup.config.js"]
 }
