@@ -148,7 +148,7 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
         const checkValidate = await validate(fileList);
         if (checkValidate) {
           let updatedFileList: ImageListType;
-          const addUpdateIndex = [];
+          const addUpdateIndex: number[] = [];
           if (keyUpdate > defaultNullIndex) {
             updatedFileList = [...value];
             updatedFileList[keyUpdate] = fileList[0];
@@ -156,7 +156,7 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
           } else {
             if (multiple) {
               updatedFileList = [...value, ...fileList];
-              for (let i = value.length; i < updatedFileList.length; i++) {
+              for (let i = value.length as number; i < updatedFileList.length; i++) {
                 addUpdateIndex.push(i);
               }
             } else {
