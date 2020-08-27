@@ -22,7 +22,7 @@
     "build:web": "webpack --config ./webpack/webpack.prod.js",
     "start": "node ./server",
     "prettier": "prettier --write ./**/*.{js,ts,tsx,md}",
-    "test": "jest"
+    "test": "./node_modules/.bin/jest"
   },
   "dependencies": {},
   "peerDependencies": {
