@@ -14,10 +14,16 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use(express.static('dist'));
+app.use(express.static('build'));
 app.use('/', router);
 
-if (process.env.NODE_ENV === 'development') {
+const env = process.env.NODE_ENV || 'development';
+
+if (env === 'production') {
+  router.get('/', function(req, res) {
+    res.sendFile('index.html', { root: path.resolve(__dirname, 'build') });
+  });
+} else {
   /**
    * Hot reload
    * https://github.com/webpack/webpack-dev-middleware
@@ -29,10 +35,6 @@ if (process.env.NODE_ENV === 'development') {
       publicPath: webpackDevConfig.output.publicPath
     })
   );
-} else {
-  router.get('/', function(req, res) {
-    res.sendFile('index.html', { root: path.resolve(__dirname, 'dist') });
-  });
 }
 
 const port = 8080;
