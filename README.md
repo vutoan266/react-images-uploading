@@ -1,94 +1,101 @@
 # react-images-uploading
 
->
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/6290720/91559755-9d6e8c00-e973-11ea-9bde-4b60c89f441a.png" />
+</div>
+
+The simple images uploader applied `Render Props` pattern. (You can read more about this pattern [here](https://reactjs.org/docs/render-props.html)).
+
+This approach allows you to fully control UI component and behaviours.
+
+> See [the intro blog post](https://medium.com/@imvutoan/make-image-upload-in-react-easier-with-react-images-uploading-and-your-ui-983fed029ee2)
 
 [![NPM](https://img.shields.io/npm/v/react-images-uploading.svg)](https://www.npmjs.com/package/react-images-uploading) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-# Images uploader
+## Installation
 
-A simple images uploader without UI. Building by yourself.
-
-## [#Demo](https://codesandbox.io/s/react-images-uploading-demo-u0khz)
-
-## [Introduce blog](https://medium.com/@imvutoan/make-image-upload-in-react-easier-with-react-images-uploading-and-your-ui-983fed029ee2)
-
-## Docs for old version 2.x.x
-
-There are some breaking changes from version 3, so if you are using the old version, please follow [this](https://github.com/vutoan266/react-images-uploading/tree/backup_v2x)
-
-## Install
-
-With npm
-
+**npm**
 ```bash
 npm install --save react-images-uploading
 ```
 
-With yarn
+or
 
+**yarn**
 ```bash
 yarn add react-images-uploading
 ```
 
-## Basic Usage
+## Usage
 
+You can check out the basic demo here:
+
+- Javascript: [https://codesandbox.io/s/react-images-uploading-demo-u0khz](https://codesandbox.io/s/react-images-uploading-demo-u0khz)
+
+**Basic**
 ```tsx
-import * as React from "react";
+import React from 'react';
+import ImageUploading from 'react-images-uploading';
 
-import ImageUploading from "react-images-uploading";
-// { ImageUploadingPropsType, ImageListType, ImageType } is type for typescript
+export function App() {
+  const [images, setImages] = React.useState([]);
+  const maxNumber = 69;
 
-const maxNumber = 10;
-const maxMbFileSize = 5 * 1024 * 1024; // 5Mb
-
-class Example extends React.Component {
-  const [images, setImages] = useState([]);
-
-  onChange = (imageList, addUpdateIndex) => {
+  const onChange = (imageList, addUpdateIndex) => {
     // data for submit
+    console.log(imageList, addUpdateIndex);
     setImages(imageList);
-    console.log('index of new chosen images: ', addUpdateIndex)
-  };
-  onError = (errors, files) => {
-    console.log(errors, files);
   };
 
-  render() {
-    return (
+  return (
+    <div className="App">
       <ImageUploading
-        value={images}
-        onChange={this.onChange}
-        maxNumber={maxNumber}
         multiple
-        maxFileSize={maxMbFileSize}
-        acceptType={["jpg", "gif", "png"]}
-        onError={this.onError}
+        value={images}
+        onChange={onChange}
+        maxNumber={maxNumber}
         dataURLKey="data_url"
       >
-        {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove }) => (
+        {({
+          imageList,
+          onImageUpload,
+          onImageRemoveAll,
+          onImageUpdate,
+          onImageRemove,
+          isDragging,
+          dragProps
+        }) => (
           // write your building UI
-          <div>
-            <button onClick={onImageUpload}>Upload images</button>
+          <div className="upload__image-wrapper">
+            <button
+              style={isDragging ? { color: "red" } : undefined}
+              onClick={onImageUpload}
+              {...dragProps}
+            >
+              Click or Drop here
+            </button>
+            &nbsp;
             <button onClick={onImageRemoveAll}>Remove all images</button>
-
             {imageList.map((image, index) => (
-              <div key={index}>
-                <img src={image.data_url} />
-                <button onClick={() => onImageUpdate(index)}>Update</button>
-                <button onClick={() => onImageRemove(index)}>Remove</button>
+              <div key={index} className="image-item">
+                <img src={image['data_url']} alt="" width="100" />
+                <div className="image-item__btn-wrapper">
+                  <button onClick={() => onImageUpdate(index)}>Update</button>
+                  <button onClick={() => onImageRemove(index)}>Remove</button>
+                </div>
               </div>
             ))}
           </div>
         )}
       </ImageUploading>
-    );
-  }
+    </div>
+  );
 }
 ```
 
-### Validate
+**Validation**
 
-```
+```ts
 ...
   {({ imageList, onImageUpload, onImageRemoveAll, errors }) => (
     <div>
@@ -101,22 +108,11 @@ class Example extends React.Component {
 ...
 ```
 
-### Resolution
-
-- "absolute": resolutionWidth and resolutionHeight is equal with selected image absolutely
-- "ratio": resolutionWidth/resolutionHeight ratio is equal with width/height ratio of selected image
-- "less: image width must less than resolutionWidth and image height must less than resolutionHeight
-- "more: image width must more than resolutionWidth and image height must more than resolutionHeight
-
-### Drag and Drop
-
-There are two props for this feature is `dragProps` and `isDragging`.
-Usage is very simple. Follow this:
+**Drag and Drop**
 
 ```tsx
-<ImageUploading value={images} onChange={this.onChange} dataURLKey="data_url">
+...
   {({ imageList, dragProps, isDragging }) => (
-    // write your building UI
     <div {...dragProps}>
       {isDragging ? "Drop here please" : "Upload space"}
       {imageList.map((image, index) => (
@@ -124,38 +120,45 @@ Usage is very simple. Follow this:
       ))}
     </div>
   )}
-</ImageUploading>
+...
 ```
 
 ## Props
 
-| parameter        | type     | options                                   | default   | description                                                                      |
-| ---------------- | -------- | ----------------------------------------- | --------- | -------------------------------------------------------------------------------- |
-| value            | array    |                                           | \[\]      | Array of image list                                                              |
-| onChange         | function | \(imageList, addUpdateindex\) => void     |           | Called every add, update or delete action                                        |
-| dataURLKey       | string   |                                           | "dataURL" | Field name that base64 of selected image is assign to                            |
-| multiple         | boolean  |                                           | false     | Set true for multiple choose                                                     |
-| maxNumber        | number   |                                           | 1000      | Number of images user can select if mode = "multiple"                            |
-| onError          | function | \(errors, files\) => void                 |           | Called if have error on validate each update                                     |
-| acceptType       | array    | \['jpg', 'gif', 'png'\]                   | \[\]      | Supported image extension                                                        |
-| maxFileSize      | number   |                                           |           | Max image size\(Byte\) \(will use in the image validation\)                      |
-| resolutionType   | string   | "absolute" \| "less" \| "more" \| "ratio" |           | Using for validate image with your width \\\- height resolution that you provide |
-| resolutionWidth  | number   | > 0                                       |           |                                                                                  |
-| resolutionHeight | number   | > 0                                       |           |                                                                                  |
+| parameter | type | options | default | description |
+| :---------------- | :-------- | :----------------------------------------- | :--------- | :-------------------------------------------------------------------------------- |
+| value | array | | [] | List of images |
+| onChange | function | (imageList, addUpdateIndex) => void | | Called when add, update or delete action is called |
+| dataURLKey | string | | dataURL | Customized field name that base64 of selected image is assigned to |
+| multiple | boolean | | false | Set `true` for multiple chooses |
+| maxNumber | number | | 1000 | Number of images user can select if mode = `multiple` |
+| onError | function | (errors, files) => void | | Called when it has errors |
+| acceptType | array | ['jpg', 'gif', 'png'] | [] | The file extension(s) to upload |
+| maxFileSize | number | | | Max image size (Byte) and it is used in validation |
+| resolutionType | string | 'absolute' \| 'less' \| 'more' \| 'ratio' | | Using for image validation with provided width & height |
+| resolutionWidth | number | > 0 | | |
+| resolutionHeight | number | > 0 | | |
+
+### Note
+
+**resolutionType**
+
+| value             | description |
+| :---------------- | :---------- |
+| absolute | image's width === resolutionWidth && image's height === resolutionHeight |
+| ratio | (resolutionWidth / resolutionHeight) === (image width / image height) |
+| less | image's width < resolutionWidth && image's height < resolutionHeight |
+| more | image's width > resolutionWidth && image's height > resolutionHeight |
 
 ## Exported options
 
-| parameter        | type                                             | description                                           |
-| ---------------- | ------------------------------------------------ | ----------------------------------------------------- |
-| imageList        | array                                            | List of images for render\.                           |
-| onImageUpload    | function                                         | Call for upload new image\(s\)                        |
-| onImageRemoveAll | function                                         | Call for remove all image\(s\)                        |
-| onImageUpdate    | \(updateIndex: number\) => void                  | Call for update at updateIndex\.                      |
-| onImageRemove    | \(deleteIndex: number \| Array<number>\) => void | Call for remove one/list image\.                      |
-| errors           | object                                           | Export list of validation                             |
-| dragProps        | object                                           | Native element props for drag and drop feature        |
-| isDragging       | boolean                                          | "true" if image\(s\) is dragged into drag and space\. |
-
-## License
-
-MIT © [](https://github.com/)
+| parameter | type | description |
+| :---------------- | :------------------------------------------------ | :----------------------------------------------------- |
+| imageList | array | List of images to render. |
+| onImageUpload | function | Called when an element is clicks and triggers to open a file dialog |
+| onImageRemoveAll | function | Called when removing all images |
+| onImageUpdate | (updateIndex: number) => void | Called when updating an image at `updateIndex`. |
+| onImageRemove | (deleteIndex: number \| number[]) => void | Called when removing one or list image. |
+| errors | object | Export list of validation |
+| dragProps | object | Native element props for drag and drop feature |
+| isDragging | boolean | "true" if an image is being dragged |
