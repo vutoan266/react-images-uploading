@@ -1,27 +1,27 @@
-import { ResolutionType } from "./typings";
+import { ResolutionType } from './typings';
 
 export const getBase64 = (file: File): Promise<string> => {
   const reader = new FileReader();
 
   return new Promise((resolve) => {
-    reader.addEventListener("load", () => resolve(String(reader.result)));
+    reader.addEventListener('load', () => resolve(String(reader.result)));
     reader.readAsDataURL(file);
   });
 };
 
 export const checkResolution = (
   dataURL: string,
-  resolutionType: ResolutionType = "absolute",
+  resolutionType: ResolutionType = 'absolute',
   resolutionWidth: number = 0,
   resolutionHeight: number = 1
 ): Promise<boolean> => {
   const image = new Image();
 
   return new Promise((resolve) => {
-    image.addEventListener("load", () => {
+    image.addEventListener('load', () => {
       if (image.width && image.height) {
         switch (resolutionType) {
-          case "absolute": {
+          case 'absolute': {
             if (
               image.width === resolutionWidth &&
               image.height === resolutionHeight
@@ -29,12 +29,12 @@ export const checkResolution = (
               return resolve(true);
             return resolve(false);
           }
-          case "ratio": {
+          case 'ratio': {
             const ratio = resolutionWidth / resolutionHeight;
             if (image.width / image.height === ratio) return resolve(true);
             return resolve(false);
           }
-          case "less": {
+          case 'less': {
             if (
               image.width <= resolutionWidth &&
               image.height <= resolutionHeight
@@ -42,7 +42,7 @@ export const checkResolution = (
               return resolve(true);
             return resolve(false);
           }
-          case "more": {
+          case 'more': {
             if (
               image.width >= resolutionWidth &&
               image.height >= resolutionHeight

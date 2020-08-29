@@ -1,12 +1,12 @@
-import * as React from "react";
-import { getBase64, checkResolution } from "./utils";
+import * as React from 'react';
+import { getBase64, checkResolution } from './utils';
 import {
   ImageType,
   ImageListType,
   ImageUploadingPropsType,
   ErrorsType,
   ResolutionType,
-} from "./typings";
+} from './typings';
 
 const { useRef, useState, useCallback } = React;
 
@@ -30,7 +30,7 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
   resolutionHeight,
   resolutionType,
   onError,
-  dataURLKey = "dataURL",
+  dataURLKey = 'dataURL',
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [keyUpdate, setKeyUpdate] = useState<number>(defaultNullIndex);
@@ -101,7 +101,7 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
 
         if (file) {
           const fileType: string = file.type;
-          if (!fileType.includes("image")) {
+          if (!fileType.includes('image')) {
             newErrors.acceptType = true;
             break;
           }
@@ -112,7 +112,7 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
             }
           }
           if (acceptType && acceptType.length > 0) {
-            const type: string = file.name.split(".").pop() || "";
+            const type: string = file.name.split('.').pop() || '';
             if (acceptType.indexOf(type) < 0) {
               newErrors.acceptType = true;
               break;
@@ -156,7 +156,11 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
           } else {
             if (multiple) {
               updatedFileList = [...value, ...fileList];
-              for (let i = value.length as number; i < updatedFileList.length; i++) {
+              for (
+                let i = value.length as number;
+                i < updatedFileList.length;
+                i++
+              ) {
                 addUpdateIndex.push(i);
               }
             } else {
@@ -175,13 +179,13 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
     e: React.ChangeEvent<HTMLInputElement>
   ): Promise<void> => {
     await handleChange(e.target.files);
-    if (inputRef.current) inputRef.current.value = "";
+    if (inputRef.current) inputRef.current.value = '';
   };
 
   const acceptString =
     acceptType && acceptType.length > 0
-      ? acceptType.map((item) => `.${item}`).join(", ")
-      : "image/*";
+      ? acceptType.map((item) => `.${item}`).join(', ')
+      : 'image/*';
 
   const handleDrag = (ev: React.DragEvent<HTMLDivElement>) => {
     ev.preventDefault();
@@ -220,7 +224,7 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
         ref={inputRef}
         multiple={multiple && keyUpdate === defaultNullIndex}
         onChange={onInputChange}
-        style={{ display: "none" }}
+        style={{ display: 'none' }}
       />
       {children &&
         children({
