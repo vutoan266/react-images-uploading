@@ -27,12 +27,12 @@ export function App() {
           onImageUpdate,
           onImageRemove,
           isDragging,
-          dragProps
+          dragProps,
         }) => (
           // write your building UI
           <div className="upload__image-wrapper">
             <button
-              style={isDragging ? { color: "red" } : undefined}
+              style={isDragging ? { color: 'red' } : undefined}
               onClick={onImageUpload}
               {...dragProps}
             >

@@ -6,18 +6,18 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   entry: './pages/index.tsx',
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.less']
+    extensions: ['.tsx', '.ts', '.js', '.less'],
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, '../build')
+    path: path.resolve(__dirname, '../build'),
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
@@ -26,10 +26,10 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[hash].[ext]',
-              outputPath: 'static/images/png/'
-            }
-          }
-        ]
+              outputPath: 'static/images/png/',
+            },
+          },
+        ],
       },
       {
         test: /\.(svg)$/i,
@@ -38,10 +38,10 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[hash].[ext]',
-              outputPath: 'static/images/svg/'
-            }
-          }
-        ]
+              outputPath: 'static/images/svg/',
+            },
+          },
+        ],
       },
       {
         test: /\.(woff(2)?|ttf|eot|otf)(\?v=\d+\.\d+\.\d+)?$/i,
@@ -50,10 +50,10 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[hash].[ext]',
-              outputPath: 'static/fonts/'
-            }
-          }
-        ]
+              outputPath: 'static/fonts/',
+            },
+          },
+        ],
       },
       {
         test: /\.less$/,
@@ -64,8 +64,8 @@ module.exports = {
               // you can specify a publicPath here
               // by default it uses publicPath in webpackOptions.output
               publicPath: '../',
-              hmr: process.env.NODE_ENV === 'development'
-            }
+              hmr: process.env.NODE_ENV === 'development',
+            },
           },
           {
             loader: 'css-loader',
@@ -74,30 +74,30 @@ module.exports = {
               modules: true,
               modules: {
                 localIdentName: '[local]--[hash:base64:5]',
-              }
-            }
+              },
+            },
           },
           {
             loader: 'less-loader',
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: 'postcss-loader',
             options: {
               ident: 'postcss',
-              plugins: loader => [
+              plugins: (loader) => [
                 require('postcss-import')({ root: loader.resourcePath }),
                 require('postcss-preset-env')(),
                 require('autoprefixer')({}),
-                require('cssnano')()
-              ]
-            }
-          }
-        ]
-      }
-    ]
+                require('cssnano')(),
+              ],
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -106,14 +106,14 @@ module.exports = {
       hash: false,
       title: 'webpack boilerplate',
       template: './public/index.html',
-      filename: 'index.html'
+      filename: 'index.html',
     }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // all options are optional
       filename: '[name].[chunkhash].css',
       chunkFilename: '[id].css',
-      ignoreOrder: false // Enable to remove warnings about conflicting order
-    })
-  ]
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
+    }),
+  ],
 };

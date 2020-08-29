@@ -43,4 +43,4 @@ export type ErrorsType = {
   resolution: boolean;
 };
 
-export type ResolutionType = "absolute" | "less" | "more" | "ratio";
+export type ResolutionType = 'absolute' | 'less' | 'more' | 'ratio';
