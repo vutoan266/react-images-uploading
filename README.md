@@ -1,4 +1,7 @@
 # react-images-uploading
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <div align="center">
   <img src="https://user-images.githubusercontent.com/6290720/91559755-9d6e8c00-e973-11ea-9bde-4b60c89f441a.png" width="250" />
@@ -165,3 +168,22 @@ export function App() {
 | errors           | object                                    | Exported object of validation                                       |
 | dragProps        | object                                    | Native element props for drag and drop feature                      |
 | isDragging       | boolean                                   | "true" if an image is being dragged                                 |
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://medium.com/@imvutoan"><img src="https://avatars1.githubusercontent.com/u/18349710?v=4?s=100" width="100px;" alt=""/><br /><sub><b>vutoan266</b></sub></a><br /><a href="https://github.com/vutoan266/react-images-uploading/commits?author=vutoan266" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
