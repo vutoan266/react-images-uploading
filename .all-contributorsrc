@@ -16,7 +16,24 @@
       "avatar_url": "https://avatars1.githubusercontent.com/u/18349710?v=4",
       "profile": "https://medium.com/@imvutoan",
       "contributions": [
-        "code"
+        "code",
+        "doc",
+        "ideas",
+        "maintenance",
+        "review",
+        "test"
+      ]
+    },
+    {
+      "login": "davidnguyen179",
+      "name": "David Nguyen",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6290720?v=4",
+      "profile": "https://www.dzungnguyen.dev/about",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "review"
       ]
     }
   ],

@@ -21,7 +21,9 @@
     "build": "tsc",
     "build:web": "webpack --config ./webpack/webpack.prod.js",
     "start": "node ./server",
-    "prettier": "prettier --write ./**/*.{js,ts,tsx,md}"
+    "prettier": "prettier --write ./**/*.{js,ts,tsx,md}",
+    "contributors:add": "./node_modules/.bin/all-contributors add",
+    "contributors:generate": "./node_modules/.bin/all-contributors generate"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -32,6 +34,7 @@
     "@types/jest": "^23.1.5",
     "@types/react": "^16.3.13",
     "@types/react-dom": "^16.0.5",
+    "all-contributors-cli": "^6.17.2",
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
     "body-parser": "^1.19.0",
