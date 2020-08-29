@@ -12,6 +12,12 @@ This approach allows you to fully control UI component and behaviours.
 
 [![NPM](https://img.shields.io/npm/v/react-images-uploading.svg)](https://www.npmjs.com/package/react-images-uploading) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 ## Installation
 
 **npm**
@@ -165,3 +171,24 @@ export function App() {
 | errors           | object                                    | Exported object of validation                                       |
 | dragProps        | object                                    | Native element props for drag and drop feature                      |
 | isDragging       | boolean                                   | "true" if an image is being dragged                                 |
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://medium.com/@imvutoan"><img src="https://avatars1.githubusercontent.com/u/18349710?v=4?s=100" width="100px;" alt=""/><br /><sub><b>vutoan266</b></sub></a><br /><a href="https://github.com/vutoan266/react-images-uploading/commits?author=vutoan266" title="Code">💻</a> <a href="#ideas-vutoan266" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/vutoan266/react-images-uploading/commits?author=vutoan266" title="Documentation">📖</a> <a href="#maintenance-vutoan266" title="Maintenance">🚧</a> <a href="https://github.com/vutoan266/react-images-uploading/commits?author=vutoan266" title="Tests">⚠️</a> <a href="https://github.com/vutoan266/react-images-uploading/pulls?q=is%3Apr+reviewed-by%3Avutoan266" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://www.dzungnguyen.dev/about"><img src="https://avatars3.githubusercontent.com/u/6290720?v=4?s=100" width="100px;" alt=""/><br /><sub><b>David Nguyen</b></sub></a><br /><a href="https://github.com/vutoan266/react-images-uploading/commits?author=davidnguyen179" title="Code">💻</a> <a href="#ideas-davidnguyen179" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/vutoan266/react-images-uploading/commits?author=davidnguyen179" title="Documentation">📖</a> <a href="https://github.com/vutoan266/react-images-uploading/pulls?q=is%3Apr+reviewed-by%3Adavidnguyen179" title="Reviewed Pull Requests">👀</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

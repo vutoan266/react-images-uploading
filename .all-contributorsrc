@@ -1,0 +1,41 @@
+{
+  "projectName": "react-images-uploading",
+  "projectOwner": "vutoan266",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "vutoan266",
+      "name": "vutoan266",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/18349710?v=4",
+      "profile": "https://medium.com/@imvutoan",
+      "contributions": [
+        "code",
+        "ideas",
+        "doc",
+        "maintenance",
+        "test",
+        "review"
+      ]
+    },
+    {
+      "login": "davidnguyen179",
+      "name": "David Nguyen",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6290720?v=4",
+      "profile": "https://www.dzungnguyen.dev/about",
+      "contributions": [
+        "code",
+        "ideas",
+        "doc",
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}

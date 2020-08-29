@@ -22,7 +22,9 @@
     "build:web": "webpack --config ./webpack/webpack.prod.js",
     "start": "node ./server",
     "prettier": "prettier --write ./**/*.{js,ts,tsx,md}",
-    "test": "./node_modules/.bin/jest"
+    "test": "./node_modules/.bin/jest",
+    "contributors:add": "./node_modules/.bin/all-contributors add",
+    "contributors:generate": "./node_modules/.bin/all-contributors generate"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -36,6 +38,7 @@
     "@types/react": "^16.3.13",
     "@types/react-dom": "^16.0.5",
     "@types/sinon": "^9.0.5",
+    "all-contributors-cli": "^6.17.2",
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
     "body-parser": "^1.19.0",
