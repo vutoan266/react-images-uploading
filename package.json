@@ -21,7 +21,8 @@
     "build": "tsc",
     "build:web": "webpack --config ./webpack/webpack.prod.js",
     "start": "node ./server",
-    "prettier": "prettier --write ./**/*.{js,ts,tsx,md}"
+    "prettier": "prettier --write ./**/*.{js,ts,tsx,md}",
+    "test": "./node_modules/.bin/jest"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -29,9 +30,12 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@types/jest": "^23.1.5",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/jest": "^26.0.10",
     "@types/react": "^16.3.13",
     "@types/react-dom": "^16.0.5",
+    "@types/sinon": "^9.0.5",
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
     "body-parser": "^1.19.0",
@@ -45,6 +49,7 @@
     "gh-pages": "^1.2.0",
     "git-hooks-plus": "^1.0.1",
     "html-webpack-plugin": "^4.3.0",
+    "jest": "^26.4.2",
     "less-loader": "^7.0.0",
     "mini-css-extract-plugin": "^0.10.0",
     "postcss-loader": "^3.0.0",
@@ -52,8 +57,10 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "rimraf": "^3.0.2",
+    "sinon": "^9.0.3",
+    "ts-jest": "^26.3.0",
     "ts-loader": "^8.0.3",
-    "typescript": "3.7.3",
+    "typescript": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-middleware": "^3.7.2",
