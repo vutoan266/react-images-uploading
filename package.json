@@ -6,10 +6,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vutoan266/React-images-uploading"
+    "url": "https://github.com/vutoan266/react-images-uploading"
   },
-  "homepage": "https://github.com/vutoan266/React-images-uploading/blob/master/README.md",
+  "homepage": "https://github.com/vutoan266/react-images-uploading/blob/master/README.md",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "engines": {
     "node": ">=8",
     "npm": ">=5"

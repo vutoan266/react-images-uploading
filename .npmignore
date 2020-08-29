@@ -1,0 +1,7 @@
+# .npmignore
+node_modules
+pages
+public
+webpack
+build
+src

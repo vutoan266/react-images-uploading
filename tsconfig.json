@@ -1,7 +1,5 @@
 {
-  "files": [
-    "src/index.tsx"
-  ],
+  "files": ["src/index.tsx"],
   "compilerOptions": {
     "outDir": "dist",
     "module": "CommonJS",
@@ -22,5 +20,5 @@
     "noUnusedParameters": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "build", "dist", "example", "rollup.config.js"]
+  "exclude": ["node_modules", "build", "dist"]
 }
