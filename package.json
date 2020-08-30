@@ -24,7 +24,8 @@
     "prettier": "prettier --write ./**/*.{js,ts,tsx,md}",
     "test": "./node_modules/.bin/jest",
     "contributors:add": "./node_modules/.bin/all-contributors add",
-    "contributors:generate": "./node_modules/.bin/all-contributors generate"
+    "contributors:generate": "./node_modules/.bin/all-contributors generate",
+    "toc": "./node_modules/.bin/doctoc --notitle README.md"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -47,6 +48,7 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "css-loader": "^4.2.2",
+    "doctoc": "^1.4.0",
     "express": "^4.17.1",
     "file-loader": "^6.0.0",
     "gh-pages": "^1.2.0",
