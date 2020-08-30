@@ -35,7 +35,21 @@
         "doc",
         "review"
       ]
+    },
+    {
+      "login": "conandk",
+      "name": "DK",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/12934183?v=4",
+      "profile": "https://github.com/conandk",
+      "contributions": [
+        "code",
+        "infra",
+        "ideas",
+        "review",
+        "doc"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }
