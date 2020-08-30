@@ -5,8 +5,7 @@ ENV NODE_VERSION 14.9.0
 WORKDIR /app
 
 # Add package.json before rest of repo for caching
-COPY package.json /app/
-COPY package-lock.json /app/
+COPY package.json package-lock.json /app/
 
 RUN npm ci
 
