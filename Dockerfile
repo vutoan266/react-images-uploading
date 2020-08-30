@@ -7,6 +7,7 @@ WORKDIR /app
 # Add package.json before rest of repo for caching
 COPY package.json package-lock.json /app/
 
+# https://docs.npmjs.com/cli/ci.html
 RUN npm ci
 
 COPY . /app
