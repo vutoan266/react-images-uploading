@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing initial list of n images should render component 1`] = `
+<Component
+  onChange={[Function]}
+  value={
+    Array [
+      Object {
+        "dataURL": "image 1",
+        "file": File {},
+      },
+    ]
+  }
+>
+  <div
+    id="app"
+  >
+    <ReactImageUploading
+      onChange={[Function]}
+      value={
+        Array [
+          Object {
+            "dataURL": "image 1",
+            "file": File {},
+          },
+        ]
+      }
+    >
+      <input
+        accept="image/*"
+        multiple={false}
+        onChange={[Function]}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+        type="file"
+      />
+      <div
+        className="upload__image-wrapper"
+      >
+        <button
+          id="btn-upload"
+          onClick={[Function]}
+          onDragEnter={[Function]}
+          onDragLeave={[Function]}
+          onDragOver={[Function]}
+          onDrop={[Function]}
+        >
+          Click or Drop here
+        </button>
+        <button
+          id="btn-remove"
+          onClick={[Function]}
+        >
+          Remove all images
+        </button>
+        <div
+          id="list-images"
+        >
+          <div
+            className="image-item"
+            key="0"
+          >
+            <img
+              id="image_0"
+            />
+            <div
+              className="image-item__btn-wrapper"
+            >
+              <button
+                id="update_0"
+                onClick={[Function]}
+              >
+                Update
+              </button>
+              <button
+                id="remove_0"
+                onClick={[Function]}
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ReactImageUploading>
+  </div>
+</Component>
+`;
