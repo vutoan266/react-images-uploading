@@ -3,7 +3,7 @@ import { ResolutionType } from './typings';
 
 export const isResolutionValid = (
   dataURL: string,
-  resolutionType: ResolutionType = 'absolute',
+  resolutionType: ResolutionType,
   resolutionWidth: number = 0,
   resolutionHeight: number = 1
 ): Promise<boolean> => {
@@ -57,11 +57,11 @@ export const isImageValid = (fileType: string) => {
   return false;
 };
 
-export const maxFileSizeValid = (fileSize, maxFileSize) => {
+export const isMaxFileSizeValid = (fileSize, maxFileSize) => {
   return maxFileSize ? fileSize <= maxFileSize : true;
 };
 
-export const acceptTypeValid = (acceptType, fileName) => {
+export const isAcceptTypeValid = (acceptType, fileName) => {
   if (acceptType && acceptType.length > 0) {
     const type: string = fileName.name.split('.').pop() || '';
     if (acceptType.indexOf(type) < 0) {
@@ -71,7 +71,7 @@ export const acceptTypeValid = (acceptType, fileName) => {
   return true;
 };
 
-export const maxNumberValid = (totalNumber, maxNumber, keyUpdate) => {
+export const isMaxNumberValid = (totalNumber, maxNumber, keyUpdate) => {
   if (keyUpdate === DEFAULT_NULL_INDEX && maxNumber && totalNumber > maxNumber)
     return false;
   return true;

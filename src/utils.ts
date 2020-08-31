@@ -1,10 +1,10 @@
 import { ImageListType } from './typings';
 
-export const triggerOpenDialog = (inputRef): void => {
+export const openFileDialog = (inputRef): void => {
   if (inputRef.current) inputRef.current.click();
 };
 
-export const getAcceptString = (acceptType?: Array<string>) => {
+export const getAcceptTypeString = (acceptType?: Array<string>) => {
   return acceptType && acceptType.length > 0
     ? acceptType.map((item) => `.${item}`).join(', ')
     : 'image/*';
@@ -18,7 +18,7 @@ export const getBase64 = (file: File): Promise<string> => {
   });
 };
 
-export const getListFile = (
+export const getListFiles = (
   files: FileList,
   dataURLKey: string
 ): Promise<ImageListType> => {
