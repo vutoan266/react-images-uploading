@@ -1,59 +1,36 @@
-import { ResolutionType } from './typings';
+import { ImageListType } from './typings';
+
+export const triggerOpenDialog = (inputRef): void => {
+  if (inputRef.current) inputRef.current.click();
+};
+
+export const getAcceptString = (acceptType?: Array<string>) => {
+  return acceptType && acceptType.length > 0
+    ? acceptType.map((item) => `.${item}`).join(', ')
+    : 'image/*';
+};
 
 export const getBase64 = (file: File): Promise<string> => {
   const reader = new FileReader();
-
   return new Promise((resolve) => {
     reader.addEventListener('load', () => resolve(String(reader.result)));
     reader.readAsDataURL(file);
   });
 };
 
-export const checkResolution = (
-  dataURL: string,
-  resolutionType: ResolutionType = 'absolute',
-  resolutionWidth: number = 0,
-  resolutionHeight: number = 1
-): Promise<boolean> => {
-  const image = new Image();
-
-  return new Promise((resolve) => {
-    image.addEventListener('load', () => {
-      if (image.width && image.height) {
-        switch (resolutionType) {
-          case 'absolute': {
-            if (
-              image.width === resolutionWidth &&
-              image.height === resolutionHeight
-            )
-              return resolve(true);
-            return resolve(false);
-          }
-          case 'ratio': {
-            const ratio = resolutionWidth / resolutionHeight;
-            if (image.width / image.height === ratio) return resolve(true);
-            return resolve(false);
-          }
-          case 'less': {
-            if (
-              image.width <= resolutionWidth &&
-              image.height <= resolutionHeight
-            )
-              return resolve(true);
-            return resolve(false);
-          }
-          case 'more': {
-            if (
-              image.width >= resolutionWidth &&
-              image.height >= resolutionHeight
-            )
-              return resolve(true);
-            return resolve(false);
-          }
-        }
-      }
-      resolve(true);
-    });
-    image.src = dataURL;
+export const getListFile = (
+  files: FileList,
+  dataURLKey: string
+): Promise<ImageListType> => {
+  const promiseFiles: Array<Promise<string>> = [];
+  for (let i = 0; i < files.length; i++) {
+    promiseFiles.push(getBase64(files[i]));
+  }
+  return Promise.all(promiseFiles).then((fileListBase64: Array<string>) => {
+    const fileList: ImageListType = fileListBase64.map((base64, index) => ({
+      [dataURLKey]: base64,
+      file: files[index],
+    }));
+    return fileList;
   });
 };

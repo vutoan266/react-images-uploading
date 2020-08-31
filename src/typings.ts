@@ -1,6 +1,7 @@
 export interface ImageType {
   dataURL?: string;
   file?: File;
+  [key: string]: any;
 }
 
 export type ImageListType = Array<ImageType>;
@@ -24,7 +25,7 @@ export interface ExportInterface {
   imageList: ImageListType;
   onImageUpload: () => void;
   onImageRemoveAll: () => void;
-  errors: Record<string, any>;
+  errors: ErrorsType;
   onImageUpdate: (index: number) => void;
   onImageRemove: (index: number) => void;
   isDragging: Boolean;
@@ -37,10 +38,10 @@ export interface ExportInterface {
 }
 
 export type ErrorsType = {
-  maxFileSize: boolean;
-  maxNumber: boolean;
-  acceptType: boolean;
-  resolution: boolean;
-};
+  maxFileSize?: boolean;
+  maxNumber?: boolean;
+  acceptType?: boolean;
+  resolution?: boolean;
+} | null;
 
 export type ResolutionType = 'absolute' | 'less' | 'more' | 'ratio';
