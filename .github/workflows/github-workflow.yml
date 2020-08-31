@@ -22,7 +22,7 @@ jobs:
       - name: Install Packages
         run: npm ci
       - name: Run Test
-        run: npm test
+        run: npm test -- --coverage
       # This step prints an output (time) from the previous step's action.
       - name: Echo the testing's time
         run: echo 'The time was ${{ steps.checkout.outputs.time }}.'
