@@ -1,9 +1,7 @@
 const ignores = ['/node_modules/', '__mocks__'];
 
 module.exports = {
-  collectCoverageFrom: [
-    'src/**/*.ts'
-  ],
+  collectCoverageFrom: ['src/**/*.+(ts|tsx)'],
   testMatch: ['**/test/**/*.spec.+(ts|tsx|js)'],
   testPathIgnorePatterns: [...ignores],
   coveragePathIgnorePatterns: [...ignores, 'src/(umd|cjs|esm)-entry.js$'],
@@ -21,5 +19,7 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
+  setupFilesAfterEnv: ['<rootDir>/test/setup/setupTests.ts'],
+  snapshotSerializers: ['enzyme-to-json/serializer'],
   verbose: true,
 };
