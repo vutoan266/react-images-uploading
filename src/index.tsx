@@ -1,5 +1,6 @@
-import * as React from 'react';
-import { getBase64, checkResolution } from './utils';
+import React, { useRef, useState, useCallback, useMemo } from 'react';
+import { openFileDialog, getListFiles, getAcceptTypeString } from './utils';
+import { getErrorValidation } from './validation';
 import {
   ImageType,
   ImageListType,
@@ -7,47 +8,37 @@ import {
   ErrorsType,
   ResolutionType,
 } from './typings';
+import {
+  DEFAULT_NULL_INDEX,
+  INIT_MAX_NUMBER,
+  DEFAULT_DATA_URL_KEY,
+} from './constants';
 
-const { useRef, useState, useCallback } = React;
-
-const defaultErrors: ErrorsType = {
-  maxFileSize: false,
-  maxNumber: false,
-  acceptType: false,
-  resolution: false,
-};
-const defaultNullIndex = -1;
-
-const ImageUploading: React.FC<ImageUploadingPropsType> = ({
-  multiple = false,
-  onChange,
-  maxNumber = 1000,
-  children,
+const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
   value = [],
+  onChange,
+  onError,
+  children,
+  dataURLKey = DEFAULT_DATA_URL_KEY,
+  multiple = false,
+  maxNumber = INIT_MAX_NUMBER,
   acceptType,
   maxFileSize,
   resolutionWidth,
   resolutionHeight,
   resolutionType,
-  onError,
-  dataURLKey = 'dataURL',
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [keyUpdate, setKeyUpdate] = useState<number>(defaultNullIndex);
-  const [errors, setErrors] = useState<ErrorsType>({ ...defaultErrors });
+  const [keyUpdate, setKeyUpdate] = useState<number>(DEFAULT_NULL_INDEX);
+  const [errors, setErrors] = useState<ErrorsType>(null);
   const [isDragging, setIsDragging] = useState<Boolean>(false);
 
-  const handleClickInput = useCallback((): void => {
-    inputRef.current && inputRef.current.click();
-  }, [inputRef]);
+  const handleClickInput = useCallback(() => openFileDialog(inputRef), [
+    inputRef,
+  ]);
 
   const onImageUpload = useCallback((): void => {
-    setKeyUpdate((prevKey) => {
-      if (prevKey >= 0) {
-        return defaultNullIndex;
-      }
-      return prevKey;
-    });
+    setKeyUpdate(DEFAULT_NULL_INDEX);
     handleClickInput();
   }, [handleClickInput]);
 
@@ -72,124 +63,69 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
     handleClickInput();
   };
 
-  const getListFile = (files: FileList): Promise<ImageListType> => {
-    const promiseFiles: Array<Promise<string>> = [];
-    for (let i = 0; i < files.length; i++) {
-      promiseFiles.push(getBase64(files[i]));
-    }
-    return Promise.all(promiseFiles).then((fileListBase64: Array<string>) => {
-      const fileList: ImageListType = fileListBase64.map((base64, index) => ({
-        [dataURLKey]: base64,
-        file: files[index],
-      }));
-      return fileList;
-    });
-  };
-
   const validate = async (fileList: ImageListType): Promise<boolean> => {
-    const newErrors = { ...defaultErrors };
-
-    if (
-      maxNumber &&
-      keyUpdate === defaultNullIndex &&
-      fileList.length + value.length > maxNumber
-    ) {
-      newErrors.maxNumber = true;
-    } else {
-      for (let i = 0; i < fileList.length; i++) {
-        const { file, dataURL } = fileList[i];
-
-        if (file) {
-          const fileType: string = file.type;
-          if (!fileType.includes('image')) {
-            newErrors.acceptType = true;
-            break;
-          }
-          if (maxFileSize) {
-            if (file.size > maxFileSize) {
-              newErrors.maxFileSize = true;
-              break;
-            }
-          }
-          if (acceptType && acceptType.length > 0) {
-            const type: string = file.name.split('.').pop() || '';
-            if (acceptType.indexOf(type) < 0) {
-              newErrors.acceptType = true;
-              break;
-            }
-          }
-        }
-        if (dataURL && resolutionType) {
-          const checkRes = await checkResolution(
-            dataURL,
-            resolutionType,
-            resolutionWidth,
-            resolutionHeight
-          );
-          if (!checkRes) {
-            newErrors.resolution = true;
-            break;
-          }
-        }
-      }
-    }
-    setErrors(newErrors);
-    if (Object.values(newErrors).find(Boolean)) {
-      onError && onError(newErrors, fileList);
+    const errorsValidation = await getErrorValidation({
+      fileList,
+      maxFileSize,
+      maxNumber,
+      acceptType,
+      dataURLKey,
+      keyUpdate,
+      resolutionType,
+      resolutionWidth,
+      resolutionHeight,
+      value,
+    });
+    if (errorsValidation) {
+      setErrors(errorsValidation);
+      onError && onError(errorsValidation, fileList);
       return false;
     }
+    errors && setErrors(null);
     return true;
   };
 
   const handleChange = async (files: FileList | null) => {
-    if (files) {
-      const fileList = await getListFile(files);
-      if (fileList.length > 0) {
-        const checkValidate = await validate(fileList);
-        if (checkValidate) {
-          let updatedFileList: ImageListType;
-          const addUpdateIndex: number[] = [];
-          if (keyUpdate > defaultNullIndex) {
-            updatedFileList = [...value];
-            updatedFileList[keyUpdate] = fileList[0];
-            addUpdateIndex.push(keyUpdate);
-          } else {
-            if (multiple) {
-              updatedFileList = [...value, ...fileList];
-              for (
-                let i = value.length as number;
-                i < updatedFileList.length;
-                i++
-              ) {
-                addUpdateIndex.push(i);
-              }
-            } else {
-              updatedFileList = [fileList[0]];
-              addUpdateIndex.push(0);
-            }
-          }
-          onChange && onChange(updatedFileList, addUpdateIndex);
+    if (!files) return;
+    const fileList = await getListFiles(files, dataURLKey);
+    if (!fileList.length) return;
+    const checkValidate = await validate(fileList);
+    if (!checkValidate) return;
+    let updatedFileList: ImageListType;
+    const updatedIndexes: number[] = [];
+    if (keyUpdate > DEFAULT_NULL_INDEX) {
+      updatedFileList = [...value];
+      updatedFileList[keyUpdate] = fileList[0];
+      updatedIndexes.push(keyUpdate);
+    } else {
+      if (multiple) {
+        updatedFileList = [...value, ...fileList];
+        for (let i = value.length as number; i < updatedFileList.length; i++) {
+          updatedIndexes.push(i);
         }
+      } else {
+        updatedFileList = [fileList[0]];
+        updatedIndexes.push(0);
       }
     }
-    keyUpdate > defaultNullIndex && setKeyUpdate(defaultNullIndex);
+    onChange && onChange(updatedFileList, updatedIndexes);
   };
 
   const onInputChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ): Promise<void> => {
     await handleChange(e.target.files);
+    keyUpdate > DEFAULT_NULL_INDEX && setKeyUpdate(DEFAULT_NULL_INDEX);
     if (inputRef.current) inputRef.current.value = '';
   };
 
-  const acceptString =
-    acceptType && acceptType.length > 0
-      ? acceptType.map((item) => `.${item}`).join(', ')
-      : 'image/*';
+  const acceptTypeString = useMemo(() => getAcceptTypeString(acceptType), [
+    acceptType,
+  ]);
 
-  const handleDrag = (ev: React.DragEvent<HTMLDivElement>) => {
-    ev.preventDefault();
-    ev.stopPropagation();
+  const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
   };
 
   const handleDragIn = (e: React.DragEvent<HTMLDivElement>) => {
@@ -220,9 +156,9 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
     <>
       <input
         type="file"
-        accept={acceptString}
+        accept={acceptTypeString}
         ref={inputRef}
-        multiple={multiple && keyUpdate === defaultNullIndex}
+        multiple={multiple && keyUpdate === DEFAULT_NULL_INDEX}
         onChange={onInputChange}
         style={{ display: 'none' }}
       />
@@ -246,7 +182,7 @@ const ImageUploading: React.FC<ImageUploadingPropsType> = ({
   );
 };
 
-export default ImageUploading;
+export default ReactImageUploading;
 
 export {
   ImageType,
