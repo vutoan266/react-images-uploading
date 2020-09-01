@@ -1,12 +1,6 @@
 import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { openFileDialog, getListFiles, getAcceptTypeString } from './utils';
-import {
-  isResolutionValid,
-  isImageValid,
-  isMaxFileSizeValid,
-  isAcceptTypeValid,
-  isMaxNumberValid,
-} from './validate';
+import { getErrorValidation } from './validate';
 import {
   ImageType,
   ImageListType,
@@ -70,45 +64,21 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
   };
 
   const validate = async (fileList: ImageListType): Promise<boolean> => {
-    const newErrors: ErrorsType = {};
-    if (
-      !isMaxNumberValid(fileList.length + value.length, maxNumber, keyUpdate)
-    ) {
-      newErrors.maxNumber = true;
-    } else {
-      for (let i = 0; i < fileList.length; i++) {
-        const { file, [dataURLKey]: dataURL } = fileList[i];
-        if (file) {
-          if (!isImageValid(file.type)) {
-            newErrors.acceptType = true;
-            break;
-          }
-          if (!isAcceptTypeValid(acceptType, file.name)) {
-            newErrors.acceptType = true;
-            break;
-          }
-          if (!isMaxFileSizeValid(file.size, maxFileSize)) {
-            newErrors.maxFileSize = true;
-            break;
-          }
-        }
-        if (dataURL && resolutionType) {
-          const checkRes = await isResolutionValid(
-            dataURL,
-            resolutionType,
-            resolutionWidth,
-            resolutionHeight
-          );
-          if (!checkRes) {
-            newErrors.resolution = true;
-            break;
-          }
-        }
-      }
-    }
-    if (Object.values(newErrors).find(Boolean)) {
-      setErrors(newErrors);
-      onError && onError(newErrors, fileList);
+    const errorsValidation = await getErrorValidation({
+      fileList,
+      maxFileSize,
+      maxNumber,
+      acceptType,
+      dataURLKey,
+      keyUpdate,
+      resolutionType,
+      resolutionWidth,
+      resolutionHeight,
+      value,
+    });
+    if (errorsValidation) {
+      setErrors(errorsValidation);
+      onError && onError(errorsValidation, fileList);
       return false;
     }
     errors && setErrors(null);
@@ -118,27 +88,27 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
   const handleChange = async (files: FileList | null) => {
     if (!files) return;
     const fileList = await getListFiles(files, dataURLKey);
-    if (!(fileList.length > 0)) return;
+    if (!fileList.length) return;
     const checkValidate = await validate(fileList);
     if (!checkValidate) return;
     let updatedFileList: ImageListType;
-    const addUpdateIndex: number[] = [];
+    const updatedIndexes: number[] = [];
     if (keyUpdate > DEFAULT_NULL_INDEX) {
       updatedFileList = [...value];
       updatedFileList[keyUpdate] = fileList[0];
-      addUpdateIndex.push(keyUpdate);
+      updatedIndexes.push(keyUpdate);
     } else {
       if (multiple) {
         updatedFileList = [...value, ...fileList];
         for (let i = value.length as number; i < updatedFileList.length; i++) {
-          addUpdateIndex.push(i);
+          updatedIndexes.push(i);
         }
       } else {
         updatedFileList = [fileList[0]];
-        addUpdateIndex.push(0);
+        updatedIndexes.push(0);
       }
     }
-    onChange && onChange(updatedFileList, addUpdateIndex);
+    onChange && onChange(updatedFileList, updatedIndexes);
   };
 
   const onInputChange = async (
@@ -153,9 +123,9 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
     acceptType,
   ]);
 
-  const handleDrag = (ev: React.DragEvent<HTMLDivElement>) => {
-    ev.preventDefault();
-    ev.stopPropagation();
+  const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
   };
 
   const handleDragIn = (e: React.DragEvent<HTMLDivElement>) => {

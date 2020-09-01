@@ -1,5 +1,5 @@
 import { DEFAULT_NULL_INDEX } from './constants';
-import { ResolutionType } from './typings';
+import { ResolutionType, ErrorsType } from './typings';
 
 export const isResolutionValid = (
   dataURL: string,
@@ -75,4 +75,54 @@ export const isMaxNumberValid = (totalNumber, maxNumber, keyUpdate) => {
   if (keyUpdate === DEFAULT_NULL_INDEX && maxNumber && totalNumber > maxNumber)
     return false;
   return true;
+};
+
+export const getErrorValidation = async ({
+  fileList,
+  value,
+  maxNumber,
+  keyUpdate,
+  dataURLKey,
+  acceptType,
+  maxFileSize,
+  resolutionType,
+  resolutionWidth,
+  resolutionHeight,
+}): Promise<ErrorsType> => {
+  const newErrors: ErrorsType = {};
+  if (!isMaxNumberValid(fileList.length + value.length, maxNumber, keyUpdate)) {
+    newErrors.maxNumber = true;
+  } else {
+    for (let i = 0; i < fileList.length; i++) {
+      const { file, [dataURLKey]: dataURL } = fileList[i];
+      if (file) {
+        if (!isImageValid(file.type)) {
+          newErrors.acceptType = true;
+          break;
+        }
+        if (!isAcceptTypeValid(acceptType, file.name)) {
+          newErrors.acceptType = true;
+          break;
+        }
+        if (!isMaxFileSizeValid(file.size, maxFileSize)) {
+          newErrors.maxFileSize = true;
+          break;
+        }
+      }
+      if (dataURL && resolutionType) {
+        const checkRes = await isResolutionValid(
+          dataURL,
+          resolutionType,
+          resolutionWidth,
+          resolutionHeight
+        );
+        if (!checkRes) {
+          newErrors.resolution = true;
+          break;
+        }
+      }
+    }
+  }
+  if (Object.values(newErrors).find(Boolean)) return newErrors;
+  return null;
 };
