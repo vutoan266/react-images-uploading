@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { openFileDialog, getListFiles, getAcceptTypeString } from './utils';
-import { getErrorValidation } from './validate';
+import { getErrorValidation } from './validation';
 import {
   ImageType,
   ImageListType,
