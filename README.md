@@ -51,6 +51,8 @@ yarn add react-images-uploading
 You can check out the basic demo here:
 
 - Javascript: [https://codesandbox.io/s/react-images-uploading-demo-u0khz](https://codesandbox.io/s/react-images-uploading-demo-u0khz)
+- Typescript: [https://codesandbox.io/s/react-images-uploading-demo-typescript-fr2zm](https://codesandbox.io/s/react-images-uploading-demo-typescript-fr2zm)
+- Server Side rendering (NextJS): [https://codesandbox.io/s/react-images-uploading-ssr-j1qq2](https://codesandbox.io/s/react-images-uploading-ssr-j1qq2)
 
 **Basic**
 
