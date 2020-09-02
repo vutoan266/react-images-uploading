@@ -40,7 +40,7 @@ exports[`testing initial list of n images should render component 1`] = `
             <button
               id="update_0"
             >
-              Update
+              Update 0
             </button>
             <button
               id="remove_0"

@@ -53,7 +53,7 @@ export const App = (props: Props) => {
                         id={`update_${index}`}
                         onClick={() => onImageUpdate(index)}
                       >
-                        Update
+                        {`Update ${index}`}
                       </button>
                       <button
                         id={`remove_${index}`}
