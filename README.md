@@ -10,7 +10,7 @@ This approach allows you to fully control UI component and behaviours.
 
 > See [the intro blog post](https://medium.com/@imvutoan/make-image-upload-in-react-easier-with-react-images-uploading-and-your-ui-983fed029ee2)
 
-[![NPM](https://img.shields.io/npm/v/react-images-uploading.svg)](https://www.npmjs.com/package/react-images-uploading) [![NPM](https://img.shields.io/npm/dm/react-images-uploading.svg)](https://www.npmjs.com/package/react-images-uploading) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vutoan266/react-images-uploading/blob/master/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ChoTotOSS/react-paginating/pulls) [![Package Quality](https://npm.packagequality.com/shield/react-images-uploading.svg)](https://packagequality.com/#?package=react-images-uploading)
+![Github_Actions](https://github.com/vutoan266/react-images-uploading/workflows/CI/CD/badge.svg) [![NPM](https://img.shields.io/npm/v/react-images-uploading.svg)](https://www.npmjs.com/package/react-images-uploading) [![NPM](https://img.shields.io/npm/dm/react-images-uploading.svg)](https://www.npmjs.com/package/react-images-uploading) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vutoan266/react-images-uploading/blob/master/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ChoTotOSS/react-paginating/pulls) [![Package Quality](https://npm.packagequality.com/shield/react-images-uploading.svg)](https://packagequality.com/#?package=react-images-uploading)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
@@ -39,8 +39,6 @@ This approach allows you to fully control UI component and behaviours.
 ```bash
 npm install --save react-images-uploading
 ```
-
-or
 
 **yarn**
 
