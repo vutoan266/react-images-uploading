@@ -1,12 +1,31 @@
 {
   "name": "react-images-uploading",
   "version": "3.0.1",
-  "description": "A simple images uploader without UI. Building by yourself",
-  "author": "imvutoan",
+  "description": "The simple images uploader applied Render Props pattern. This approach allows you to fully control UI component and behaviours.",
+  "author": {
+    "name" : "vutoan266",
+    "email" : "vutoan266@gmail.com",
+    "url" : "https://github.com/vutoan266"
+  },
+  "contributors": [
+    {
+      "name" : "davidnguyen179",
+      "email" : "dzungnguyen179@gmail.com",
+      "url" : "https://github.com/davidnguyen179"
+    },
+    {
+      "name" : "conandk",
+      "email" : "ddangkhoa94@gmail.com",
+      "url" : "https://github.com/conandk"
+    }
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/vutoan266/react-images-uploading"
+  },
+  "bugs": {
+    "url": "https://github.com/vutoan266/react-images-uploading/issues"
   },
   "homepage": "https://github.com/vutoan266/react-images-uploading/blob/master/README.md",
   "main": "dist/index.js",
@@ -89,6 +108,11 @@
     "react images uploading",
     "drag",
     "drag and drop",
-    "image drag and drop"
+    "image drag and drop",
+    "reactjs",
+    "typescript",
+    "javascript",
+    "render props",
+    "react-component"
   ]
 }
