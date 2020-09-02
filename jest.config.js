@@ -19,7 +19,5 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
-  setupFilesAfterEnv: ['<rootDir>/test/setup/setupTests.ts'],
-  snapshotSerializers: ['enzyme-to-json/serializer'],
   verbose: true,
 };

@@ -3,20 +3,20 @@
   "version": "3.0.1",
   "description": "The simple images uploader applied Render Props pattern. This approach allows you to fully control UI component and behaviours.",
   "author": {
-    "name" : "vutoan266",
-    "email" : "vutoan266@gmail.com",
-    "url" : "https://github.com/vutoan266"
+    "name": "vutoan266",
+    "email": "vutoan266@gmail.com",
+    "url": "https://github.com/vutoan266"
   },
   "contributors": [
     {
-      "name" : "davidnguyen179",
-      "email" : "dzungnguyen179@gmail.com",
-      "url" : "https://github.com/davidnguyen179"
+      "name": "davidnguyen179",
+      "email": "dzungnguyen179@gmail.com",
+      "url": "https://github.com/davidnguyen179"
     },
     {
-      "name" : "conandk",
-      "email" : "ddangkhoa94@gmail.com",
-      "url" : "https://github.com/conandk"
+      "name": "conandk",
+      "email": "ddangkhoa94@gmail.com",
+      "url": "https://github.com/conandk"
     }
   ],
   "license": "MIT",
@@ -54,8 +54,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-typescript": "^7.10.4",
-    "@types/enzyme": "^3.10.5",
-    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@testing-library/react": "^10.4.9",
     "@types/jest": "^26.0.10",
     "@types/react": "^16.3.13",
     "@types/react-dom": "^16.0.5",
@@ -70,9 +69,6 @@
     "cookie-parser": "^1.4.5",
     "css-loader": "^4.2.2",
     "doctoc": "^1.4.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.3",
-    "enzyme-to-json": "^3.5.0",
     "express": "^4.17.1",
     "file-loader": "^6.0.0",
     "gh-pages": "^1.2.0",
@@ -83,8 +79,8 @@
     "mini-css-extract-plugin": "^0.10.0",
     "postcss-loader": "^3.0.0",
     "prettier": "^2.1.1",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "rimraf": "^3.0.2",
     "sinon": "^9.0.3",
     "ts-jest": "^26.3.0",

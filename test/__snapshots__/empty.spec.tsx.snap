@@ -1,52 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`testing empty case should render component 1`] = `
-<Component
-  onChange={[Function]}
-  value={Array []}
->
+<div>
   <div
     id="app"
   >
-    <ReactImageUploading
-      onChange={[Function]}
-      value={Array []}
+    <input
+      accept="image/*"
+      style="display: none;"
+      type="file"
+    />
+    <div
+      class="upload__image-wrapper"
     >
-      <input
-        accept="image/*"
-        multiple={false}
-        onChange={[Function]}
-        style={
-          Object {
-            "display": "none",
-          }
-        }
-        type="file"
-      />
-      <div
-        className="upload__image-wrapper"
+      <button
+        id="btn-upload"
       >
-        <button
-          id="btn-upload"
-          onClick={[Function]}
-          onDragEnter={[Function]}
-          onDragLeave={[Function]}
-          onDragOver={[Function]}
-          onDrop={[Function]}
-        >
-          Click or Drop here
-        </button>
-        <button
-          id="btn-remove"
-          onClick={[Function]}
-        >
-          Remove all images
-        </button>
-        <div
-          id="list-images"
-        />
-      </div>
-    </ReactImageUploading>
+        Click or Drop here
+      </button>
+      <button
+        id="btn-remove"
+      >
+        Remove all images
+      </button>
+      <div
+        id="list-images"
+      />
+    </div>
   </div>
-</Component>
+</div>
 `;

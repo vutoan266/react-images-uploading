@@ -57,8 +57,8 @@ export const isImageValid = (fileType: string) => {
   return false;
 };
 
-export const isMaxFileSizeValid = (fileSize, maxFileSize) => {
-  return fileSize <= maxFileSize;
+export const isMaxFileSizeValid = (fileSize, maxFileSize?) => {
+  return maxFileSize ? fileSize <= maxFileSize : true;
 };
 
 export const isAcceptTypeValid = (acceptType, fileName) => {

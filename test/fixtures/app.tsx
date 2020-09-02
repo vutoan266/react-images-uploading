@@ -1,10 +1,16 @@
 import * as React from 'react';
-import ImageUploading, { ImageUploadingPropsType } from '../../src';
+import ImageUploading, { ImageListType } from '../../src';
 
-export const App = (props: ImageUploadingPropsType) => {
+export const App = (props: Props) => {
+  const [images, setImages] = React.useState([]);
+
+  const onChange = (imageList) => {
+    setImages(imageList);
+  };
+
   return (
     <div id="app">
-      <ImageUploading {...props}>
+      <ImageUploading value={images} onChange={onChange} {...props}>
         {({
           imageList,
           errors,
@@ -15,9 +21,7 @@ export const App = (props: ImageUploadingPropsType) => {
           onImageRemove,
           dragProps,
         }) => {
-          // onImageUpload = onImageUploadStub;
           return (
-            // write your building UI
             <div className="upload__image-wrapper">
               {errors && errors.maxNumber && (
                 <span>Number of selected images exceed maxNumber</span>
@@ -39,7 +43,11 @@ export const App = (props: ImageUploadingPropsType) => {
               <div id="list-images">
                 {imageList.map((image, index) => (
                   <div key={index} className="image-item">
-                    <img id={`image_${index}`} src={image['data_url']} />
+                    <img
+                      id={`image_${index}`}
+                      src={image.dataURL}
+                      alt="image-preview"
+                    />
                     <div className="image-item__btn-wrapper">
                       <button
                         id={`update_${index}`}
@@ -51,7 +59,7 @@ export const App = (props: ImageUploadingPropsType) => {
                         id={`remove_${index}`}
                         onClick={() => onImageRemove(index)}
                       >
-                        Remove
+                        {`Remove ${index}`}
                       </button>
                     </div>
                   </div>
@@ -63,4 +71,9 @@ export const App = (props: ImageUploadingPropsType) => {
       </ImageUploading>
     </div>
   );
+};
+
+type Props = {
+  value?: ImageListType;
+  multiple?: boolean;
 };
