@@ -63,7 +63,7 @@ export const isMaxFileSizeValid = (fileSize, maxFileSize?) => {
 
 export const isAcceptTypeValid = (acceptType, fileName) => {
   if (acceptType && acceptType.length > 0) {
-    const type: string = fileName.name.split('.').pop() || '';
+    const type: string = fileName.split('.').pop() || '';
     if (acceptType.indexOf(type) < 0) {
       return false;
     }
@@ -72,9 +72,13 @@ export const isAcceptTypeValid = (acceptType, fileName) => {
 };
 
 export const isMaxNumberValid = (totalNumber, maxNumber, keyUpdate) => {
-  if (keyUpdate === DEFAULT_NULL_INDEX && maxNumber && totalNumber > maxNumber)
-    return false;
-  return true;
+  if (maxNumber !== 0 && !maxNumber) return true;
+  if (keyUpdate === DEFAULT_NULL_INDEX) {
+    if (totalNumber <= maxNumber) return true;
+  } else {
+    if (totalNumber <= maxNumber + 1) return true;
+  }
+  return false;
 };
 
 export const getErrorValidation = async ({
