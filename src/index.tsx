@@ -32,7 +32,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [keyUpdate, setKeyUpdate] = useState<number>(DEFAULT_NULL_INDEX);
   const [errors, setErrors] = useState<ErrorsType>(null);
-  const [isDragging, setIsDragging] = useState<Boolean>(false);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const handleClickInput = useCallback(() => openFileDialog(inputRef), [
     inputRef,

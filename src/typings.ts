@@ -28,7 +28,7 @@ export interface ExportInterface {
   errors: ErrorsType;
   onImageUpdate: (index: number) => void;
   onImageRemove: (index: number) => void;
-  isDragging: Boolean;
+  isDragging: boolean;
   dragProps: {
     onDrop: (e: any) => void;
     onDragEnter: (e: any) => void;
