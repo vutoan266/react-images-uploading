@@ -48,6 +48,15 @@
         "review",
         "doc"
       ]
+    },
+    {
+      "login": "masesisaac",
+      "name": "Isaac Maseruka",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/9384060?v=4",
+      "profile": "https://masesisaac.me/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
