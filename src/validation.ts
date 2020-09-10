@@ -64,7 +64,7 @@ export const isMaxFileSizeValid = (fileSize, maxFileSize) => {
 export const isAcceptTypeValid = (acceptType, fileName) => {
   if (acceptType && acceptType.length > 0) {
     const type: string = fileName.name.split('.').pop() || '';
-    if (acceptType.indexOf(type) < 0) {
+    if (acceptType.findIndex(item => item.toLowerCase() === type.toLowerCase()) < 0) {
       return false;
     }
   }
