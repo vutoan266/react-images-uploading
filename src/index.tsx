@@ -69,7 +69,6 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
       maxFileSize,
       maxNumber,
       acceptType,
-      dataURLKey,
       keyUpdate,
       resolutionType,
       resolutionWidth,

@@ -18,6 +18,14 @@ export const getBase64 = (file: File): Promise<string> => {
   });
 };
 
+export const getImage = (file: File): Promise<HTMLImageElement> => {
+  const image = new Image();
+  return new Promise((resolve) => {
+    image.addEventListener('load', () => resolve(image));
+    image.src = URL.createObjectURL(file);
+  });
+};
+
 export const getListFiles = (
   files: FileList,
   dataURLKey: string
