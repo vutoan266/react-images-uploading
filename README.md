@@ -13,7 +13,9 @@ This approach allows you to fully control UI component and behaviours.
 ![Github_Actions](https://github.com/vutoan266/react-images-uploading/workflows/CI/CD/badge.svg) [![NPM](https://img.shields.io/npm/v/react-images-uploading.svg)](https://www.npmjs.com/package/react-images-uploading) [![NPM](https://img.shields.io/npm/dm/react-images-uploading.svg)](https://www.npmjs.com/package/react-images-uploading) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vutoan266/react-images-uploading/blob/master/LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/vutoan266/react-images-uploading/pulls) [![Package Quality](https://npm.packagequality.com/shield/react-images-uploading.svg)](https://packagequality.com/#?package=react-images-uploading) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Package Quality](https://npm.packagequality.com/badge/react-images-uploading.png)](https://packagequality.com/#?package=react-images-uploading)
@@ -202,6 +204,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

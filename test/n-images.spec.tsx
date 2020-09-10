@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
-import { stub } from 'sinon';
-import toJson from 'enzyme-to-json';
 import { ImageListType } from '../src';
 import { App } from './fixtures/app';
+import { render } from '@testing-library/react';
 
 describe('testing initial list of n images', () => {
   it('should render component', () => {
-    var file = new File([''], 'image-1-name', { type: 'image/png' });
+    const file = new File([''], 'image-1-name', { type: 'image/png' });
 
     const images: ImageListType = [
       {
@@ -15,7 +13,7 @@ describe('testing initial list of n images', () => {
         dataURL: 'image 1',
       },
     ];
-    const wrapper = mount(<App value={images} onChange={stub()} />);
-    expect(toJson(wrapper)).toMatchSnapshot();
+    const { container } = render(<App value={images} />);
+    expect(container).toMatchSnapshot();
   });
 });
