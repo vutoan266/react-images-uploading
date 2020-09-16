@@ -31,6 +31,8 @@ export const isResolutionValid = (
         return true;
       break;
     }
+    default:
+      break;
   }
   return false;
 };
@@ -63,9 +65,7 @@ export const isMaxNumberValid = (totalNumber, maxNumber, keyUpdate) => {
   if (maxNumber !== 0 && !maxNumber) return true;
   if (keyUpdate === DEFAULT_NULL_INDEX) {
     if (totalNumber <= maxNumber) return true;
-  } else {
-    if (totalNumber <= maxNumber + 1) return true;
-  }
+  } else if (totalNumber <= maxNumber + 1) return true;
   return false;
 };
 
@@ -84,7 +84,7 @@ export const getErrorValidation = async ({
   if (!isMaxNumberValid(fileList.length + value.length, maxNumber, keyUpdate)) {
     newErrors.maxNumber = true;
   } else {
-    for (let i = 0; i < fileList.length; i++) {
+    for (let i = 0; i < fileList.length; i += 1) {
       const { file } = fileList[i];
       if (!file) continue;
       if (!isImageValid(file.type)) {

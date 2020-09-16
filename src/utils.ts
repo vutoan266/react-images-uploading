@@ -31,7 +31,7 @@ export const getListFiles = (
   dataURLKey: string
 ): Promise<ImageListType> => {
   const promiseFiles: Array<Promise<string>> = [];
-  for (let i = 0; i < files.length; i++) {
+  for (let i = 0; i < files.length; i += 1) {
     promiseFiles.push(getBase64(files[i]));
   }
   return Promise.all(promiseFiles).then((fileListBase64: Array<string>) => {

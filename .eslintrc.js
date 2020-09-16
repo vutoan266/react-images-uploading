@@ -12,4 +12,13 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.eslint.json',
   },
+  rules: {
+    'react/jsx-props-no-spreading': 'off',
+    'react/prop-types': 'off',
+    '@typescript-eslint/no-unused-expressions': ['off'],
+  },
+  env: {
+    browser: true,
+    node: true,
+  },
 };
