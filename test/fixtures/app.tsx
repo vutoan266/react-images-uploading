@@ -43,7 +43,7 @@ export default (props: Props) => {
 
               <div id="list-images">
                 {imageList.map((image, index) => (
-                  <div key={index} className="image-item">
+                  <div key={`image-${image.dataURL}`} className="image-item">
                     <img
                       id={`image_${index}`}
                       src={image.dataURL}
