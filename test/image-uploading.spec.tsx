@@ -1,7 +1,7 @@
 import * as React from 'react';
 import sinon from 'sinon';
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import { App } from './fixtures/app';
+import App from './fixtures/app';
 import * as Utils from '../src/utils';
 
 describe('testing ReactImageUploading component', () => {

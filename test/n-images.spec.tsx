@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 import { ImageListType } from '../src';
-import { App } from './fixtures/app';
+import App from './fixtures/app';
 
 describe('testing initial list of n images', () => {
   it('should render component', () => {
