@@ -40,7 +40,7 @@
     "build": "tsc",
     "build:web": "webpack --config ./webpack/webpack.prod.js",
     "start": "node ./server",
-    "prettier": "prettier --write ./**/*.{js,ts,tsx,md}",
+    "prettier": "./node_modules/.bin/prettier --write ./**/*.{js,ts,tsx,md}",
     "test": "./node_modules/.bin/jest",
     "lint": "./node_modules/.bin/eslint . --ext .ts,.tsx",
     "lint:fix": "./node_modules/.bin/eslint . --ext .ts,.tsx --fix",
