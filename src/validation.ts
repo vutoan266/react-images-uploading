@@ -81,8 +81,7 @@ export const getErrorValidation = async ({
   resolutionHeight,
 }): Promise<ErrorsType> => {
   const newErrors: ErrorsType = {};
-  const valueLength = value ? value.length : 0;
-  if (!isMaxNumberValid(fileList.length + valueLength, maxNumber, keyUpdate)) {
+  if (!isMaxNumberValid(fileList.length + value.length, maxNumber, keyUpdate)) {
     newErrors.maxNumber = true;
   } else {
     for (let i = 0; i < fileList.length; i++) {

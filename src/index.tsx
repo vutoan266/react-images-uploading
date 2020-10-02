@@ -28,6 +28,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
   resolutionHeight,
   resolutionType,
 }) => {
+  const inValue = value || [];
   const inputRef = useRef<HTMLInputElement>(null);
   const [keyUpdate, setKeyUpdate] = useState<number>(DEFAULT_NULL_INDEX);
   const [errors, setErrors] = useState<ErrorsType>(null);
@@ -47,7 +48,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
   }, [onChange]);
 
   const onImageRemove = (index: number | Array<number>): void => {
-    const updatedList = [...value];
+    const updatedList = [...inValue];
     if (Array.isArray(index)) {
       index.forEach((i) => {
         updatedList.splice(i, 1);
@@ -73,7 +74,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
       resolutionType,
       resolutionWidth,
       resolutionHeight,
-      value,
+      value: inValue,
     });
     if (errorsValidation) {
       setErrors(errorsValidation);
@@ -93,13 +94,17 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
     let updatedFileList: ImageListType;
     const updatedIndexes: number[] = [];
     if (keyUpdate > DEFAULT_NULL_INDEX) {
-      updatedFileList = [...value];
+      updatedFileList = [...inValue];
       updatedFileList[keyUpdate] = fileList[0];
       updatedIndexes.push(keyUpdate);
     } else {
       if (multiple) {
-        updatedFileList = [...value, ...fileList];
-        for (let i = value.length as number; i < updatedFileList.length; i++) {
+        updatedFileList = [...inValue, ...fileList];
+        for (
+          let i = inValue.length as number;
+          i < updatedFileList.length;
+          i++
+        ) {
           updatedIndexes.push(i);
         }
       } else {
@@ -163,7 +168,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
       />
       {children &&
         children({
-          imageList: value,
+          imageList: inValue,
           onImageUpload,
           onImageRemoveAll,
           onImageUpdate,
