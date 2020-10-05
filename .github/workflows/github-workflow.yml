@@ -5,7 +5,7 @@ on: [push]
 jobs:
   test:
     # Job name
-    name: Jest test
+    name: ESLint and Jest test
     # This job runs on Linux
     runs-on: ubuntu-latest
     strategy:
@@ -21,6 +21,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Packages
         run: npm ci
+      - name: Run Lint
+        run: npm run lint
       - name: Run Test
         run: npm test
       # This step prints an output (time) from the previous step's action.
