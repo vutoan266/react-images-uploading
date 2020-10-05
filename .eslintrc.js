@@ -15,6 +15,11 @@ module.exports = {
   rules: {
     'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
+    'no-unused-expressions': 'off',
+    '@typescript-eslint/no-unused-expressions': 'off',
+    'no-continue': 'off',
+    'no-await-in-loop': 'off',
+    'react/require-default-props': ['off'],
   },
   env: {
     browser: true,
