@@ -42,10 +42,10 @@ describe('testing ReactImageUploading component', () => {
     fireEvent.change(inputEl);
 
     // 4. Wait to re-render
-    await waitFor(() => getByAltText('image-preview'));
+    await waitFor(() => getByAltText('preview'));
 
     // 5. Compare the image url
-    const dataURL = (getByAltText('image-preview') as HTMLImageElement).src;
+    const dataURL = (getByAltText('preview') as HTMLImageElement).src;
     expect(dataURL).toMatchSnapshot('data:image/png;base64,KOKMkOKWoV/ilqEp');
   });
 
@@ -68,7 +68,7 @@ describe('testing ReactImageUploading component', () => {
     fireEvent.change(inputEl);
 
     // 4. Wait to re-render
-    await waitFor(() => getByAltText('image-preview'));
+    await waitFor(() => getByAltText('preview'));
 
     fireEvent.click(getByText(/Remove all images/));
     expect(queryByTestId('image_0')).toBeNull();
@@ -93,7 +93,7 @@ describe('testing ReactImageUploading component', () => {
     fireEvent.change(inputEl);
 
     // 4. Wait to re-render
-    await waitFor(() => getByAltText('image-preview'));
+    await waitFor(() => getByAltText('preview'));
 
     // 5. Remove first image
     fireEvent.click(getByText('Remove 0'));
