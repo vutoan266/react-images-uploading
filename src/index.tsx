@@ -44,6 +44,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
   }, [handleClickInput]);
 
   const onImageRemoveAll = useCallback((): void => {
+    onChange?.([]);
     onChange && onChange([]);
   }, [onChange]);
 
@@ -94,23 +95,22 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
     let updatedFileList: ImageListType;
     const updatedIndexes: number[] = [];
     if (keyUpdate > DEFAULT_NULL_INDEX) {
+      const [firstFile] = fileList;
       updatedFileList = [...inValue];
-      updatedFileList[keyUpdate] = fileList[0];
+      updatedFileList[keyUpdate] = firstFile;
       updatedIndexes.push(keyUpdate);
-    } else {
-      if (multiple) {
-        updatedFileList = [...inValue, ...fileList];
-        for (
-          let i = inValue.length as number;
-          i < updatedFileList.length;
-          i++
-        ) {
-          updatedIndexes.push(i);
-        }
-      } else {
-        updatedFileList = [fileList[0]];
-        updatedIndexes.push(0);
+    } else if (multiple) {
+      updatedFileList = [...inValue, ...fileList];
+      for (
+        let i = inValue.length as number;
+        i < updatedFileList.length;
+        i += 1
+      ) {
+        updatedIndexes.push(i);
       }
+    } else {
+      updatedFileList = [fileList[0]];
+      updatedIndexes.push(0);
     }
     onChange && onChange(updatedFileList, updatedIndexes);
   };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ImageUploading from '../src';
 
-export default function App() {
+export const App = () => {
   const [images, setImages] = React.useState([]);
   const maxNumber = 69;
 
@@ -61,4 +61,6 @@ export default function App() {
       </ImageUploading>
     </div>
   );
-}
+};
+
+export default App;
