@@ -32,7 +32,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [keyUpdate, setKeyUpdate] = useState<number>(DEFAULT_NULL_INDEX);
   const [errors, setErrors] = useState<ErrorsType>(null);
-  const [isDragging, setIsDragging] = useState<Boolean>(false);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const handleClickInput = useCallback(() => openFileDialog(inputRef), [
     inputRef,
@@ -44,7 +44,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
   }, [handleClickInput]);
 
   const onImageRemoveAll = useCallback((): void => {
-    onChange && onChange([]);
+    onChange?.([]);
   }, [onChange]);
 
   const onImageRemove = (index: number | Array<number>): void => {
@@ -56,7 +56,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
     } else {
       updatedList.splice(index, 1);
     }
-    onChange && onChange(updatedList);
+    onChange?.(updatedList);
   };
 
   const onImageUpdate = (index: number): void => {
@@ -78,7 +78,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
     });
     if (errorsValidation) {
       setErrors(errorsValidation);
-      onError && onError(errorsValidation, fileList);
+      onError?.(errorsValidation, fileList);
       return false;
     }
     errors && setErrors(null);
@@ -94,25 +94,24 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
     let updatedFileList: ImageListType;
     const updatedIndexes: number[] = [];
     if (keyUpdate > DEFAULT_NULL_INDEX) {
+      const [firstFile] = fileList;
       updatedFileList = [...inValue];
-      updatedFileList[keyUpdate] = fileList[0];
+      updatedFileList[keyUpdate] = firstFile;
       updatedIndexes.push(keyUpdate);
-    } else {
-      if (multiple) {
-        updatedFileList = [...inValue, ...fileList];
-        for (
-          let i = inValue.length as number;
-          i < updatedFileList.length;
-          i++
-        ) {
-          updatedIndexes.push(i);
-        }
-      } else {
-        updatedFileList = [fileList[0]];
-        updatedIndexes.push(0);
+    } else if (multiple) {
+      updatedFileList = [...inValue, ...fileList];
+      for (
+        let i = inValue.length as number;
+        i < updatedFileList.length;
+        i += 1
+      ) {
+        updatedIndexes.push(i);
       }
+    } else {
+      updatedFileList = [fileList[0]];
+      updatedIndexes.push(0);
     }
-    onChange && onChange(updatedFileList, updatedIndexes);
+    onChange?.(updatedFileList, updatedIndexes);
   };
 
   const onInputChange = async (
@@ -166,22 +165,21 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
         onChange={onInputChange}
         style={{ display: 'none' }}
       />
-      {children &&
-        children({
-          imageList: inValue,
-          onImageUpload,
-          onImageRemoveAll,
-          onImageUpdate,
-          onImageRemove,
-          errors,
-          dragProps: {
-            onDrop: handleDrop,
-            onDragEnter: handleDragIn,
-            onDragLeave: handleDragOut,
-            onDragOver: handleDrag,
-          },
-          isDragging,
-        })}
+      {children?.({
+        imageList: inValue,
+        onImageUpload,
+        onImageRemoveAll,
+        onImageUpdate,
+        onImageRemove,
+        errors,
+        dragProps: {
+          onDrop: handleDrop,
+          onDragEnter: handleDragIn,
+          onDragLeave: handleDragOut,
+          onDragOver: handleDrag,
+        },
+        isDragging,
+      })}
     </>
   );
 };

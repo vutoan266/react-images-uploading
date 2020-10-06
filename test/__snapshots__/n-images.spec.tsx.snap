@@ -15,11 +15,13 @@ exports[`testing initial list of n images should render component 1`] = `
     >
       <button
         id="btn-upload"
+        type="button"
       >
         Click or Drop here
       </button>
       <button
         id="btn-remove"
+        type="button"
       >
         Remove all images
       </button>
@@ -30,7 +32,7 @@ exports[`testing initial list of n images should render component 1`] = `
           class="image-item"
         >
           <img
-            alt="image-preview"
+            alt="preview"
             id="image_0"
             src="image 1"
           />
@@ -39,11 +41,13 @@ exports[`testing initial list of n images should render component 1`] = `
           >
             <button
               id="update_0"
+              type="button"
             >
               Update 0
             </button>
             <button
               id="remove_0"
+              type="button"
             >
               Remove 0
             </button>
