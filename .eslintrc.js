@@ -20,6 +20,7 @@ module.exports = {
     'no-continue': 'off',
     'no-await-in-loop': 'off',
     'react/require-default-props': ['off'],
+    'react/no-array-index-key': 'off',
   },
   env: {
     browser: true,

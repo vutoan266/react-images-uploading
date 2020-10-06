@@ -43,7 +43,7 @@ export const App = () => {
               Remove all images
             </button>
             {imageList.map((image, index) => (
-              <div key={`image-${image.data_url}`} className="image-item">
+              <div key={`image-${index}`} className="image-item">
                 <img src={image.data_url} alt="" width="100" />
                 <div className="image-item__btn-wrapper">
                   <button type="button" onClick={() => onImageUpdate(index)}>

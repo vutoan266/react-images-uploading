@@ -45,7 +45,6 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
 
   const onImageRemoveAll = useCallback((): void => {
     onChange?.([]);
-    onChange && onChange([]);
   }, [onChange]);
 
   const onImageRemove = (index: number | Array<number>): void => {
@@ -57,7 +56,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
     } else {
       updatedList.splice(index, 1);
     }
-    onChange && onChange(updatedList);
+    onChange?.(updatedList);
   };
 
   const onImageUpdate = (index: number): void => {
@@ -79,7 +78,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
     });
     if (errorsValidation) {
       setErrors(errorsValidation);
-      onError && onError(errorsValidation, fileList);
+      onError?.(errorsValidation, fileList);
       return false;
     }
     errors && setErrors(null);
@@ -112,7 +111,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
       updatedFileList = [fileList[0]];
       updatedIndexes.push(0);
     }
-    onChange && onChange(updatedFileList, updatedIndexes);
+    onChange?.(updatedFileList, updatedIndexes);
   };
 
   const onInputChange = async (
@@ -166,22 +165,21 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
         onChange={onInputChange}
         style={{ display: 'none' }}
       />
-      {children &&
-        children({
-          imageList: inValue,
-          onImageUpload,
-          onImageRemoveAll,
-          onImageUpdate,
-          onImageRemove,
-          errors,
-          dragProps: {
-            onDrop: handleDrop,
-            onDragEnter: handleDragIn,
-            onDragLeave: handleDragOut,
-            onDragOver: handleDrag,
-          },
-          isDragging,
-        })}
+      {children?.({
+        imageList: inValue,
+        onImageUpload,
+        onImageRemoveAll,
+        onImageUpdate,
+        onImageRemove,
+        errors,
+        dragProps: {
+          onDrop: handleDrop,
+          onDragEnter: handleDragIn,
+          onDragLeave: handleDragOut,
+          onDragOver: handleDrag,
+        },
+        isDragging,
+      })}
     </>
   );
 };
