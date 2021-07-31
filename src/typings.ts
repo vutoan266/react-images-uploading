@@ -36,6 +36,7 @@ export interface ExportInterface {
     onDragEnter: (e: any) => void;
     onDragLeave: (e: any) => void;
     onDragOver: (e: any) => void;
+    onDragStart: (e: any) => void;
   };
 }
 
