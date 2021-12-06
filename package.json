@@ -1,7 +1,7 @@
 {
-  "name": "react-images-uploading",
+  "name": "react-images-videos-upload",
   "version": "3.1.3",
-  "description": "The simple images uploader applied Render Props pattern. This approach allows you to fully control UI component and behaviours.",
+  "description": "The simple images and videos uploader applied Render Props pattern. This approach allows you to fully control UI component and behaviours.",
   "author": {
     "name": "vutoan266",
     "email": "vutoan266@gmail.com",
@@ -22,12 +22,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vutoan266/react-images-uploading"
+    "url": "https://github.com/TeraReach/react-images-videos-upload/"
   },
   "bugs": {
-    "url": "https://github.com/vutoan266/react-images-uploading/issues"
+    "url": "https://github.com/TeraReach/react-images-videos-upload/issues"
   },
-  "homepage": "https://github.com/vutoan266/react-images-uploading/blob/master/README.md",
+  "homepage": "https://github.com/TeraReach/react-images-videos-upload/blob/master/README.md",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",

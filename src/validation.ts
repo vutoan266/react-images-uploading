@@ -38,9 +38,9 @@ export const isResolutionValid = (
 };
 
 export const isImageValid = (fileType: string) => {
-  if (fileType.includes('image')) {
-    return true;
-  }
+  if (fileType.includes('image') || (fileType.includes('video'))) {
+        return true;
+    } 
   return false;
 };
 
