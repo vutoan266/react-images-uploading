@@ -25,9 +25,9 @@
     "url": "https://github.com/TeraReach/react-images-videos-upload/"
   },
   "bugs": {
-    "url": "https://github.com/TeraReach/react-images-videos-upload//issues"
+    "url": "https://github.com/TeraReach/react-images-videos-upload/issues"
   },
-  "homepage": "https://github.com/TeraReach/react-images-videos-upload//blob/master/README.md",
+  "homepage": "https://github.com/TeraReach/react-images-videos-upload/blob/master/README.md",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
