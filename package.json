@@ -36,7 +36,6 @@
     "npm": ">=5"
   },
   "scripts": {
-    "prepare": "npm run build"
     "prebuild": "rimraf dist/",
     "build": "tsc",
     "build:web": "webpack --config ./webpack/webpack.prod.js",
