@@ -1,10 +1,10 @@
 import { DEFAULT_NULL_INDEX } from './constants';
-import { ResolutionType, ErrorsType } from './typings';
+import { ResolutionTypes, ErrorsType } from './typings';
 import { getImage } from './utils';
 
 export const isResolutionValid = (
   image: HTMLImageElement,
-  resolutionType: ResolutionType,
+  resolutionType: ResolutionTypes,
   resolutionWidth: number = 0,
   resolutionHeight: number = 1
 ): boolean => {
@@ -100,16 +100,32 @@ export const getErrorValidation = async ({
         break;
       }
       if (resolutionType) {
-        const image = await getImage(file);
-        const checkRes = isResolutionValid(
-          image,
-          resolutionType,
-          resolutionWidth,
-          resolutionHeight
-        );
-        if (!checkRes) {
-          newErrors.resolution = true;
-          break;
+        if (typeof resolutionType === 'string') {
+          const image = await getImage(file);
+          const checkRes = isResolutionValid(
+            image,
+            resolutionType,
+            resolutionWidth,
+            resolutionHeight
+          );
+          if (!checkRes) {
+            newErrors.resolution = true;
+            break;
+          }
+        } else {
+          const image = await getImage(file);
+          for (let j = 0; j < resolutionType.length; j += 1) {
+            const checkRes = isResolutionValid(
+              image,
+              resolutionType[j],
+              resolutionWidth,
+              resolutionHeight
+            );
+            if (!checkRes) {
+              newErrors.resolution = true;
+              break;
+            }
+          }
         }
       }
     }
