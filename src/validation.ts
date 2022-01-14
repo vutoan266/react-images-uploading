@@ -31,6 +31,16 @@ export const isResolutionValid = (
         return true;
       break;
     }
+    case 'ratioWithMinDimensions': {
+      const ratio = resolutionWidth / resolutionHeight;
+      if (
+        image.width / image.height === ratio &&
+        image.width >= resolutionWidth &&
+        image.height >= resolutionHeight
+      )
+        return true;
+      break;
+    }
     default:
       break;
   }

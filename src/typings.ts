@@ -48,4 +48,9 @@ export type ErrorsType = {
   resolution?: boolean;
 } | null;
 
-export type ResolutionType = 'absolute' | 'less' | 'more' | 'ratio';
+export type ResolutionType =
+  | 'absolute'
+  | 'less'
+  | 'more'
+  | 'ratio'
+  | 'ratioWithMinDimensions';
