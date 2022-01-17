@@ -6,7 +6,7 @@ import {
   ImageListType,
   ImageUploadingPropsType,
   ErrorsType,
-  ResolutionType,
+  ResolutionTypes,
 } from './typings';
 import {
   DEFAULT_NULL_INDEX,
@@ -184,7 +184,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
           onDragEnter: handleDragIn,
           onDragLeave: handleDragOut,
           onDragOver: handleDrag,
-          onDragStart:handleDragStart,
+          onDragStart: handleDragStart,
         },
         isDragging,
       })}
@@ -199,5 +199,5 @@ export {
   ImageListType,
   ImageUploadingPropsType,
   ErrorsType,
-  ResolutionType,
+  ResolutionTypes,
 };
