@@ -158,7 +158,7 @@ export function App() {
 | onError          | function                            | (errors, files) => void                   |         | Called when it has errors                                          |
 | acceptType       | array                               | ['jpg', 'gif', 'png']                     | []      | The file extension(s) to upload                                    |
 | maxFileSize      | number                              |                                           |         | Max image size (Byte) and it is used in validation                 |
-| resolutionType   | string                              | 'absolute' \| 'less' \| 'more' \| 'ratio' |         | Using for image validation with provided width & height            |
+| resolutionType   | string \| string[]                  | 'absolute' \| 'less' \| 'more' \| 'ratio' |         | Using for image validation with provided width & height            |
 | resolutionWidth  | number                              | > 0                                       |         |                                                                    |
 | resolutionHeight | number                              | > 0                                       |         |                                                                    |
 | inputProps       | React.HTMLProps\<HTMLInputElement\> |                                           |         |                                                                    |
@@ -173,6 +173,8 @@ export function App() {
 | ratio    | (resolutionWidth / resolutionHeight) === (image width / image height)    |
 | less     | image's width < resolutionWidth && image's height < resolutionHeight     |
 | more     | image's width > resolutionWidth && image's height > resolutionHeight     |
+
+One can also pass multiple values from above options in array format. For eg: ['ratio', 'more']
 
 ## Exported options
 
