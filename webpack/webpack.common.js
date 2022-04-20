@@ -70,7 +70,6 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
               modules: true,
               modules: {
                 localIdentName: '[local]--[hash:base64:5]',
@@ -79,9 +78,7 @@ module.exports = {
           },
           {
             loader: 'less-loader',
-            options: {
-              sourceMap: true,
-            },
+            options: {},
           },
           {
             loader: 'postcss-loader',
