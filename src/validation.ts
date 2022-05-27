@@ -37,13 +37,6 @@ export const isResolutionValid = (
   return false;
 };
 
-export const isImageValid = (fileType: string) => {
-  if (fileType.includes('image')) {
-    return true;
-  }
-  return false;
-};
-
 export const isMaxFileSizeValid = (fileSize, maxFileSize?) => {
   return maxFileSize ? fileSize <= maxFileSize : true;
 };
@@ -87,10 +80,6 @@ export const getErrorValidation = async ({
     for (let i = 0; i < fileList.length; i += 1) {
       const { file } = fileList[i];
       if (!file) continue;
-      if (!isImageValid(file.type)) {
-        newErrors.acceptType = true;
-        break;
-      }
       if (!isAcceptTypeValid(acceptType, file.name)) {
         newErrors.acceptType = true;
         break;
