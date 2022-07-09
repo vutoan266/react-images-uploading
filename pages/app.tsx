@@ -7,7 +7,12 @@ export const App = () => {
 
   const onChange = (imageList) => {
     // data for submit
+    console.log('Images', imageList);
     setImages(imageList);
+  };
+
+  const onError = (errors, files) => {
+    console.log('Error', errors, files);
   };
 
   return (
@@ -16,6 +21,7 @@ export const App = () => {
         multiple
         value={images}
         onChange={onChange}
+        onError={onError}
         maxNumber={maxNumber}
         dataURLKey="data_url"
       >
@@ -27,8 +33,9 @@ export const App = () => {
           onImageRemove,
           isDragging,
           dragProps,
+          errors,
         }) => (
-          // write your building UI
+          // write your own UI
           <div className="upload__image-wrapper">
             <button
               type="button"
@@ -55,6 +62,24 @@ export const App = () => {
                 </div>
               </div>
             ))}
+            {errors && (
+              <div>
+                {errors.maxNumber && (
+                  <span>Number of selected images exceed maxNumber</span>
+                )}
+                {errors.acceptType && (
+                  <span>Your selected file type is not allow</span>
+                )}
+                {errors.maxFileSize && (
+                  <span>Selected file size exceed maxFileSize</span>
+                )}
+                {errors.resolution && (
+                  <span>
+                    Selected file is not match your desired resolution
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         )}
       </ImageUploading>

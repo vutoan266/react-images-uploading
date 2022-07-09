@@ -79,6 +79,7 @@ export const getErrorValidation = async ({
   resolutionType,
   resolutionWidth,
   resolutionHeight,
+  allowNonImageType,
 }): Promise<ErrorsType> => {
   const newErrors: ErrorsType = {};
   if (!isMaxNumberValid(fileList.length + value.length, maxNumber, keyUpdate)) {
@@ -87,7 +88,7 @@ export const getErrorValidation = async ({
     for (let i = 0; i < fileList.length; i += 1) {
       const { file } = fileList[i];
       if (!file) continue;
-      if (!isImageValid(file.type)) {
+      if (!allowNonImageType && !isImageValid(file.type)) {
         newErrors.acceptType = true;
         break;
       }

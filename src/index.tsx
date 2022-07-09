@@ -28,6 +28,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
   resolutionHeight,
   resolutionType,
   inputProps = {},
+  allowNonImageType = false,
 }) => {
   const inValue = value || [];
   const inputRef = useRef<HTMLInputElement>(null);
@@ -76,6 +77,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
       resolutionWidth,
       resolutionHeight,
       value: inValue,
+      allowNonImageType,
     });
     if (errorsValidation) {
       setErrors(errorsValidation);
@@ -123,9 +125,10 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
     if (inputRef.current) inputRef.current.value = '';
   };
 
-  const acceptTypeString = useMemo(() => getAcceptTypeString(acceptType), [
-    acceptType,
-  ]);
+  const acceptTypeString = useMemo(
+    () => getAcceptTypeString(acceptType, allowNonImageType),
+    [acceptType, allowNonImageType]
+  );
 
   const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -184,7 +187,7 @@ const ReactImageUploading: React.FC<ImageUploadingPropsType> = ({
           onDragEnter: handleDragIn,
           onDragLeave: handleDragOut,
           onDragOver: handleDrag,
-          onDragStart:handleDragStart,
+          onDragStart: handleDragStart,
         },
         isDragging,
       })}
