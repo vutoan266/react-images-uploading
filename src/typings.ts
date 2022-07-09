@@ -22,6 +22,7 @@ export interface ImageUploadingPropsType {
   onError?: (errors: ErrorsType, files?: ImageListType) => void;
   dataURLKey?: string;
   inputProps?: React.HTMLProps<HTMLInputElement>;
+  allowNonImageType?: boolean;
 }
 
 export interface ExportInterface {

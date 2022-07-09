@@ -4,10 +4,14 @@ export const openFileDialog = (inputRef): void => {
   if (inputRef.current) inputRef.current.click();
 };
 
-export const getAcceptTypeString = (acceptType?: Array<string>) => {
-  return acceptType && acceptType.length > 0
-    ? acceptType.map((item) => `.${item}`).join(', ')
-    : 'image/*';
+export const getAcceptTypeString = (
+  acceptType?: Array<string>,
+  allowNonImageType?: boolean
+) => {
+  if (acceptType?.length)
+    return acceptType.map((item) => `.${item}`).join(', ');
+  if (allowNonImageType) return '';
+  return 'image/*';
 };
 
 export const getBase64 = (file: File): Promise<string> => {

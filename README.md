@@ -148,20 +148,21 @@ export function App() {
 
 ## Props
 
-| parameter        | type                                | options                                   | default | description                                                        |
-| ---------------- | ----------------------------------- | ----------------------------------------- | ------- | ------------------------------------------------------------------ |
-| value            | array                               |                                           | []      | List of images                                                     |
-| onChange         | function                            | (imageList, addUpdateIndex) => void       |         | Called when add, update or delete action is called                 |
-| dataURLKey       | string                              |                                           | dataURL | Customized field name that base64 of selected image is assigned to |
-| multiple         | boolean                             |                                           | false   | Set `true` for multiple chooses                                    |
-| maxNumber        | number                              |                                           | 1000    | Number of images user can select if mode = `multiple`              |
-| onError          | function                            | (errors, files) => void                   |         | Called when it has errors                                          |
-| acceptType       | array                               | ['jpg', 'gif', 'png']                     | []      | The file extension(s) to upload                                    |
-| maxFileSize      | number                              |                                           |         | Max image size (Byte) and it is used in validation                 |
-| resolutionType   | string                              | 'absolute' \| 'less' \| 'more' \| 'ratio' |         | Using for image validation with provided width & height            |
-| resolutionWidth  | number                              | > 0                                       |         |                                                                    |
-| resolutionHeight | number                              | > 0                                       |         |                                                                    |
-| inputProps       | React.HTMLProps\<HTMLInputElement\> |                                           |         |                                                                    |
+| parameter         | type                                | options                                   | default | description                                                           |
+| ----------------- | ----------------------------------- | ----------------------------------------- | ------- | --------------------------------------------------------------------- |
+| value             | array                               |                                           | []      | List of images                                                        |
+| onChange          | function                            | (imageList, addUpdateIndex) => void       |         | Called when add, update or delete action is called                    |
+| dataURLKey        | string                              |                                           | dataURL | Customized field name that base64 of selected image is assigned to    |
+| multiple          | boolean                             |                                           | false   | Set `true` for multiple chooses                                       |
+| maxNumber         | number                              |                                           | 1000    | Number of images user can select if mode = `multiple`                 |
+| onError           | function                            | (errors, files) => void                   |         | Called when it has errors                                             |
+| acceptType        | array                               | ['jpg', 'gif', 'png']                     | []      | The file extension(s) to upload                                       |
+| maxFileSize       | number                              |                                           |         | Max image size (Byte) and it is used in validation                    |
+| resolutionType    | string                              | 'absolute' \| 'less' \| 'more' \| 'ratio' |         | Using for image validation with provided width & height               |
+| resolutionWidth   | number                              | > 0                                       |         |                                                                       |
+| resolutionHeight  | number                              | > 0                                       |         |                                                                       |
+| inputProps        | React.HTMLProps\<HTMLInputElement\> |                                           |         |                                                                       |
+| allowNonImageType | boolean                             |                                           | false   | Using for uploading non-image type purpose (E.g. txt, pdf, heic, ...) |
 
 ### Note
 
