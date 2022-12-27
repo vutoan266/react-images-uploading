@@ -7,6 +7,7 @@ import {
   ImageUploadingPropsType,
   ErrorsType,
   ResolutionType,
+  ExportInterface
 } from './typings';
 import {
   DEFAULT_NULL_INDEX,
@@ -203,4 +204,5 @@ export {
   ImageUploadingPropsType,
   ErrorsType,
   ResolutionType,
+  ExportInterface
 };
